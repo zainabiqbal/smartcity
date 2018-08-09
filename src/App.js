@@ -37,8 +37,8 @@ componentDidMount(){
       <Router>
         <div>
         
-         <Route exact path ="/" component={Home}/>
-        <Route  path ="/Login" component={Login}/> 
+         {/* <Route exact path ="/" component={Home}/>
+        <Route  path ="/Login" component={Login}/>  */}
          {this.state.user ? (<Dashboard/>) : (<Login/>)} 
 
 
