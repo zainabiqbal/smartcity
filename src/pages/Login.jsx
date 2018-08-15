@@ -7,6 +7,7 @@ import fire from '../config/Fire';
 
 
 
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ render(){
       <label htmlFor="exampleInputPassword1">Password</label>
       <input value={this.state.password}  onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Enter Password" />
       </div>
-      <button type="submit" onClick={this.login} className="btn btn-primary">Login</button>
+      <button type="submit" onClick={this.login} href='/Dashboard' className="btn btn-primary">Login</button>
      <small id="emailHelp" className="form-text text-muted">@2017-2018</small>
 
       </form>

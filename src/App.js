@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import Home from './pages/Home.jsx';
-import Login from './pages/Login.jsx';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
 import fire from './config/Fire';
 import Dashboard from './pages/Dashboard';
+// import Header from './pages/Header';
 
 class App extends Component {
   constructor(props) {
@@ -36,15 +37,15 @@ componentDidMount(){
     return (
       <Router>
 
-      <div>
-
-        
-        <Route path ="/Home" component={Home}/>
-        <Route  path ="/Login" component={Login}/> 
-        <Route  path ="/Dashboard" component={Dashboard}/> 
+      
+        <Switch>
+        <Route path='/' exact component={(this.state.user)?Dashboard:Login} render={()=>(this.state.user)?<Redirect to='/Dashboard'/>:<Redirect to='/Login'/>} />
+        <Route path ="/Home" exact component={Home}/>
+        <Route  path ="/Login" exact component={(this.state.user)?Dashboard:Login}/> 
+        <Route  path ="/Dashboard" component={(this.state.user)?Dashboard:Login}/> 
          
-         {this.state.user ? (<Dashboard/>) : (<Login/>)} 
-    </div>
+         {/* {this.state.user ? (<Dashboard/>) : (<Login/>)}  */}
+        </Switch>
     </Router>
    
         

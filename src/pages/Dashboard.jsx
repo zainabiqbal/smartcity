@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import './Dashboard.css';
 import fire from '../config/Fire';
+// import Header from './pages/Header';
+// import Sidebar from './pages/Sidebar';
+import Navbar from '../components/Navbar.jsx';
 
 
 class Dashboard extends Component {
@@ -18,7 +21,11 @@ class Dashboard extends Component {
         return(
         
         <div>
-            
+            {/* <Header/>
+            <Sidebar/> */}
+
+<Navbar/>
+
                 <h1>Welcome to Dashboard</h1>
                <button onClick= {this.logout}> Logout </button>
             
