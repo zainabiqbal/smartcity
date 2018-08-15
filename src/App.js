@@ -35,16 +35,19 @@ componentDidMount(){
   render() {
     return (
       <Router>
-        <div>
+
+      <div>
+
         
-        <Route exact path ="/" component={Home}/>
+        <Route path ="/Home" component={Home}/>
         <Route  path ="/Login" component={Login}/> 
-         
+        <Route  path ="/Dashboard" component={Dashboard}/> 
          
          {this.state.user ? (<Dashboard/>) : (<Login/>)} 
-
-        </div>
-        </Router>
+    </div>
+    </Router>
+   
+        
     );
   }
 }

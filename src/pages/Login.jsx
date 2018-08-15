@@ -36,7 +36,7 @@ class Login extends Component {
     }).catch((error) => {
        // console.log(error);
        //alert(<div style={{ color: 'blue' }}>Some Message</div>)
-       alert('Oh look, an alert!')      });
+       alert('invalid email or password!')      });
   }
 
 
