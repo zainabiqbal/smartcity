@@ -12,6 +12,8 @@ import MapContainer from './components/Map.jsx';
 import CreateAdmin from './pages/CreateAdmin';
 import AddBin from './pages/AddBin';
 import ViewAdmin from './pages/ViewManager';
+import UpdateManager from './pages/UpdateManager';
+import MViewManager from './pages/mViewManager';
 
 class App extends Component {
   constructor(props) {
@@ -63,7 +65,7 @@ componentDidMount(){
         <Route path="/" exact component={(this.state.user) ? Dashboard:Home} render={()=>(this.state.user)?<Redirect to='/Dashboard'/>:<Redirect to='/Home'/>} />
         <Route path ="/Home" exact component={Home}/>
         <Route path ="/Feedback" exact component={Feedback}/>
-        <Route  path ="/Login" exact component={(this.state.role==='Manager')?ManagerDashboard:(this.state.user)?(Dashboard):Login}/> 
+        <Route  path ="/Login" exact component={(this.state.role==='Manager')&&(this.state.user)?ManagerDashboard:(this.state.user)?(Dashboard):Login}/> 
         <Route  path ="/Dashboard" component={(this.state.user)?Dashboard:Login}/> 
         <Route  path ="/CreateManager" component={(this.state.user)?CreateManager:Login}/> 
         <Route  path ="/ViewManager" component={(this.state.user)?ViewManager:Login}/> 
@@ -72,6 +74,10 @@ componentDidMount(){
         <Route  path ="/CreateAdmin" component={(this.state.user)?CreateAdmin:Login}/> 
         <Route  path ="/AddBin"  component={AddBin}/>
         <Route  path ="/ViewAdmin" component={(this.state.user)?ViewAdmin:Login}/> 
+        <Route  path ="/ManagerDashboard" component={(this.state.user)?ManagerDashboard:Login}/> 
+        <Route  path ="/mViewManager" component={(this.state.user)?MViewManager:Login}/> 
+        <Route  path ="/UpdateManager" component={(this.state.user)?UpdateManager:Login}/> 
+
 
 
         {/* <div> {this.state.role === 'Manager' ? <ManagerDashboard/>: "" } </div> */}

@@ -23,7 +23,7 @@ class Dashboard extends Component {
         return(
         
         <div>
-                                   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
         {/*---- Include the above in your HEAD tag --------*/}
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -32,8 +32,8 @@ class Dashboard extends Component {
         <link href="css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" type="text/css" />
  
-<NextNavbar/>
-                <h1 className="font-weight-bold"  >Welcome {this.props.user}</h1>
+      <NextNavbar/>
+                <h1 className="font-weight-bold"  >Welcome </h1>
 
                 <Card/>
                 <br />

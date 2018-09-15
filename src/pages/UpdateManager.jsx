@@ -1,14 +1,14 @@
 import React from 'react';
 import './CreateManager.css';
 import fire from '../config/Fire';
-import ManNavbar from '../components/NextNavbar.jsx';
+import ManNavbar from '../components/ManNavbar.jsx';
 
 
 
 class UpdateManager extends React.Component {
     constructor(props) {
         super(props);
-        this.Create = this.Create.bind(this);
+        this.updateProfile = this.updateProfile.bind(this);
         this.state = {
             username:'',
             email: '',
@@ -27,9 +27,9 @@ class UpdateManager extends React.Component {
 
         fire.auth().updateProfile(
             this.state.email,
-            this.state.password
-            // this.state.phone,
-            // this.state.username
+            this.state.password,
+            this.state.phone,
+            this.state.username
         ).then((u)=>{
             console.log(u.user.uid);
            var ref = fire.database().ref('Users/' + u.user.uid);
@@ -71,7 +71,7 @@ render()
 
         <div className="container">
         <div className="container">      
-        <h2 >  Add a new Manager <span className="glyphicon glyphicon-user" aria-hidden="true" /> </h2>        
+        <h2 >  Update your Information <span className="glyphicon glyphicon-user" aria-hidden="true" /> </h2>        
         </div>
 
         <form className="form-create">

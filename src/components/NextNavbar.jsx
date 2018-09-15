@@ -30,28 +30,31 @@ class NextNavbar extends Component {
         <div className="container">
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                 <Link className="nav-link " to="/Dashboard">Home</Link>
+              </li>
 
-              <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" to='/' id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Admin Settings
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <Link className="dropdown-item"  to="/CreateAdmin">Create Admin</Link>
-          <Link className="dropdown-item" to="/ViewAdmin">View Admin</Link>
-          <Link className="dropdown-item" to="/DeleteAdmin">Delete Admin</Link>
-        </div>
-      </li>
-            
-        <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Manager Settings
-        </a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <Link className="dropdown-item"  to="/CreateManager">Create Manager</Link>
-          <Link className="dropdown-item" to="/ViewManager">View Managers</Link>
-          <Link className="dropdown-item" to="/DeleteManager">Delete Manager</Link>
-        </div>
-      </li>
+                  <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" to='/' id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin Settings
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <Link className="dropdown-item"  to="/CreateAdmin">Create Admin</Link>
+              <Link className="dropdown-item" to="/ViewAdmin">View Admin</Link>
+              <Link className="dropdown-item" to="/DeleteAdmin">Delete Admin</Link>
+            </div>
+          </li>
+                
+            <li className="nav-item dropdown">
+            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Manager Settings
+            </a>
+            <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <Link className="dropdown-item"  to="/CreateManager">Create Manager</Link>
+              <Link className="dropdown-item" to="/ViewManager">View Managers</Link>
+              <Link className="dropdown-item" to="/DeleteManager">Delete Manager</Link>
+            </div>
+          </li>
 
             
               <li className="nav-item">

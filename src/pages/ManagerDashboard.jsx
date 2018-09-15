@@ -140,14 +140,6 @@ class ManagerDashboard extends Component {
         <footer id="footer">
           <p>Copyright : Efficient Data COllection in Smart city<br />2018</p>
         </footer>
-    //     {/* Bootstrap core JavaScript
-    // ================================================== */}
-    //     {/* Placed at the end of the document so the pages load faster */}
-
-
-
-
-
 
 
 
