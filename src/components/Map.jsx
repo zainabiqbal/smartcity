@@ -4,13 +4,11 @@ import {Map,  Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import NextNavbar from '../components/NextNavbar.jsx';
 import bin from '../images/bin.png';
 import fire from '../config/Fire';
-import  {Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import './Map.css';
+import {Button} from 'react-bootstrap'
+import AddBin from '../pages/AddBin';
+import {Link } from 'react-router-dom';
 
-//const google = window.google;
-// import Paper from 'material-ui/Paper';
-// import Typography from 'material-ui/Typography';
-// import { typography } from 'material-ui/styles';
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -20,12 +18,10 @@ export class MapContainer extends Component {
       activeMarker: {},
       selectedPlace: {},
       google : window.google,
-      random: 0,
       data:[]
     });
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
-    this.handleClick = this.handleClick.bind(this);
 
   }
 
@@ -47,12 +43,6 @@ export class MapContainer extends Component {
     }
   }
 
-  min = 1;
-  max = 100;
-  handleClick = () => {
-    this.setState({random: this.min + (Math.random() * (this.max - this.min))});
-  };
-
   componentWillMount(){
     var arr=[]
    fire.database().ref('Bins/' ).once('value',snapshot=>{
@@ -61,7 +51,6 @@ export class MapContainer extends Component {
        arr.push(cord);
      })
       this.setState({data: arr})
-       console.log("idher");
        console.log(this.state.data);
 
      
@@ -71,15 +60,21 @@ export class MapContainer extends Component {
 
   render() {
     const style = {
-      width: '50%',
-      height: '70%',
+      width: '100%',
+      height: '90%',
     }
     
     return (
-      <div>
+      <div >
        <NextNavbar/>
-      <div className="map-canvas">
-      <Map  
+     <div>
+    <Link to='/AddBin'> <Button id="button" bsStyle="primary" bsSize="large"  Component={AddBin}>
+      Add more Bins
+     </Button></Link>
+      </div>      
+      
+       <div id="map-canvas">
+      <Map 
       
       google={this.state.google} 
       zoom={16}
@@ -92,7 +87,8 @@ export class MapContainer extends Component {
       >
       {this.state.data.map(cord=> {
 return (
-        <Marker   
+        <Marker  
+        label='Student Cafe' 
           onClick = { this.onMarkerClick}
              title={'Student Cafe'}
              name={'Student Cafe'}
@@ -115,13 +111,14 @@ return (
       // onOpen={this.handleClick}
      > 
   <h4> Student cafe  
-      <p component='p'>Fill Level {cord.fillLevel}</p>
+      <p > Fill Level {cord.fillLevel}</p>
   </h4>
     </InfoWindow>
       ) } ) } 
 
 
         <Marker
+        label={"CS Department"}
             title={' CS department'}
             name={' CS department'}
             position={{lat: 33.649941, lng: 73.155520}} 
@@ -133,6 +130,7 @@ return (
                   }} 
 />
         <Marker
+           label="EE Department"
             title={'EE department'}
             name={'EE department'}
             position={{lat: 33.651278, lng: 73.156117}} 
@@ -144,6 +142,7 @@ return (
 />
         <Marker/>
       <Marker
+          label='University Parking'
             title={'University Parking'}
             name={'University Parking'}
             position={{lat: 33.648104, lng:73.157249}}
@@ -154,10 +153,9 @@ return (
     }}
      
     />
-      
-
       </Map>
       </div>
+    
      </div>
     );
   }
