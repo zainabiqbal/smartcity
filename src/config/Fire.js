@@ -1,5 +1,5 @@
 
-
+//import * as admin from 'firebase-admin';
 import firebase from 'firebase';
 
   const config = {
@@ -11,4 +11,8 @@ import firebase from 'firebase';
     messagingSenderId: "219914402739"
   };
   const fire= firebase.initializeApp(config);
+ 
+
+ 
+
   export default fire;

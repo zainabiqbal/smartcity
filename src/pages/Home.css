@@ -1,56 +1,32 @@
 
-.parallax-container {
-    position: relative;
-    overflow: hidden;
+.features-icons {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
 }
-.bg-gray-dark {
-    background-color: #2a2a2a;
+.text-center {
+    text-align: center!important;
 }
-.bg-gray-dark, .bg-gray-darker, .bg-gray-base, .bg-gray-3, .bg-gray-7, .bg-gray-8, .bg-gray-10, .bg-primary, .breadcrumbs-custom, .bg-gray-dark h1, .bg-gray-darker h1, .bg-gray-base h1, .bg-gray-3 h1, .bg-gray-7 h1, .bg-gray-8 h1, .bg-gray-10 h1, .bg-primary h1, .breadcrumbs-custom h1, .bg-gray-dark h2, .bg-gray-darker h2, .bg-gray-base h2, .bg-gray-3 h2, .bg-gray-7 h2, .bg-gray-8 h2, .bg-gray-10 h2, .bg-primary h2, .breadcrumbs-custom h2, .bg-gray-dark h3, .bg-gray-darker h3, .bg-gray-base h3, .bg-gray-3 h3, .bg-gray-7 h3, .bg-gray-8 h3, .bg-gray-10 h3, .bg-primary h3, .breadcrumbs-custom h3, .bg-gray-dark h4, .bg-gray-darker h4, .bg-gray-base h4, .bg-gray-3 h4, .bg-gray-7 h4, .bg-gray-8 h4, .bg-gray-10 h4, .bg-primary h4, .breadcrumbs-custom h4, .bg-gray-dark h5, .bg-gray-darker h5, .bg-gray-base h5, .bg-gray-3 h5, .bg-gray-7 h5, .bg-gray-8 h5, .bg-gray-10 h5, .bg-primary h5, .breadcrumbs-custom h5, .bg-gray-dark h6, .bg-gray-darker h6, .bg-gray-base h6, .bg-gray-3 h6, .bg-gray-7 h6, .bg-gray-8 h6, .bg-gray-10 h6, .bg-primary h6, .breadcrumbs-custom h6, .bg-gray-dark [class^='heading'], .bg-gray-darker [class^='heading'], .bg-gray-base [class^='heading'], .bg-gray-3 [class^='heading'], .bg-gray-7 [class^='heading'], .bg-gray-8 [class^='heading'], .bg-gray-10 [class^='heading'], .bg-primary [class^='heading'], .breadcrumbs-custom [class^='heading'] {
-    color: #fff;
+.bg-light {
+    background-color: #f8f9fa!important;
 }
-.parallax-container::before {
-    content: '';
-    position: absolute;
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5);
 }
-.material-parallax {
-    position: absolute;
-    top: 0;
-    left: -1px;
-    right: -1px;
-    bottom: 0;
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+body {
+    font-family: Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
-.parallax-content {
-    position: relative;
-    z-index: 11;
+.features-icons .features-icons-item .features-icons-icon i {
+    font-size:4.5rem
 }
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50% 50%;
+.icon-check:before {
+    content: "\e080";
 }
-.section-md {
-    padding: 70px 0;
+*, ::after, ::before {
+    box-sizing: border-box;
 }
-.box-counter-modern {
-    text-align: center;
-    color: #151515;
-}
-.bg-gray-dark .box-counter-modern, .bg-gray-darker .box-counter-modern, .bg-gray-base .box-counter-modern, .bg-gray-3 .box-counter-modern, .bg-gray-7 .box-counter-modern, .bg-gray-8 .box-counter-modern, .bg-gray-10 .box-counter-modern, .bg-primary .box-counter-modern, .breadcrumbs-custom .box-counter-modern {
-    color: #fff;
-}
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
-    display: block;
-}
+
 

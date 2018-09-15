@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import './Login.css';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+//import admin from '../config/Admin';
 import fire from '../config/Fire';
-// import Dashboard from './pages/Dashboard.jsx';
 
 
 
@@ -23,27 +23,22 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-
-  // login(e) {
-  //   e.preventDefault(); 
-  //   fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-  //   }).catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
   login(e) {
     e.preventDefault(); 
     fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-    }).catch((error) => {
-       // console.log(error);
-       //alert(<div style={{ color: 'blue' }}>Some Message</div>)
-       alert('invalid email or password!')      });
+  
+}
+
+).catch((error) => {
+       console.log(error)  ;
+alert("Invalid Email or Password")   });
   }
 
 
  
 render(){
     return(
+          
         <div>
         <Navbar/>
 
@@ -58,13 +53,15 @@ render(){
       <label htmlFor="exampleInputPassword1">Password</label>
       <input value={this.state.password}  onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Enter Password" />
       </div>
-      <button type="submit" onClick={this.login} href='/Dashboard' className="btn btn-primary">Login</button>
+      <button type="submit" onClick={this.login}  className="btn btn-primary">Login</button>
      <small id="emailHelp" className="form-text text-muted">@2017-2018</small>
 
       </form>
       </div>
       </div>
-      <Footer/>
+      
+   <Footer/>
+  
       </div>
       
     );
