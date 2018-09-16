@@ -4,6 +4,13 @@ import {Map,  Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import NextNavbar from '../components/NextNavbar';
 import bin from '../images/bin.png';
 import fire from '../config/Fire';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 // const google = window.google;
 // import Paper from 'material-ui/Paper';
@@ -200,15 +207,92 @@ function addToFirebase(data) {
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleClick=this.handleClick.bind(this);
     this.state = ({
-      google : window.google
+      google : window.google,
+      lat:'',
+      lng:'',
+      open: false,
+      name:''
 
     });
   }
+  onMapClick(){
+    console.log('something somethin')
+  }
+  handleClick=(event)=>{
+    var lat = event.latLng.lat(), lng = event.latLng.lng();
+    this.setState({lat:lat,lng:lng});
+    console.log('lat',this.state.lat,'lng',this.state.lng)
+  }
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
 
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state.name);
+  }
+  handleUpload(){
+    const{name,lat,lng}=this.state
+    fire.database().ref('Bins/').push({'name':name,'lat':lat,'lng':lng});
+  }
   render(){
+    const style = {
+      width: '600px',
+      height: '400px',
+    }
     return(
-     <div id='map'> this is the map</div>    
+     <div className='container'>
+      <div className='row' style={style}>
+        <Map 
+        
+          google={this.state.google} 
+          zoom={16}
+          style={style}
+          onClick={(t, map,e) => this.handleClick(e)}
+          initialCenter={{
+            lat: 33.6518,
+            lng: 73.1566
+          }}
+          >
+        </Map>
+      </div>
+      <div className='row'>
+        <Button onClick={this.handleClickOpen}>Open alert dialog</Button>
+      </div>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Bhai form complete kro"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              <TextField
+                id="name"
+                label="Name"
+                name='name'
+                value={this.state.name}
+                onChange={this.handleChange.bind(this)}
+                margin="normal"
+              />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={this.handleUpload.bind(this)} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
+     </div>  
     
     )
   }

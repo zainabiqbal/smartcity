@@ -20,6 +20,7 @@ class ViewManager extends React.Component {
       
       componentWillMount () {
                 this.View();
+                console.log('IM MANAGER AAAAAAAAAA')
         }
 
     View(){

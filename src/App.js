@@ -11,7 +11,7 @@ import CreateManager from './pages/CreateManager';
 import MapContainer from './components/Map.jsx';
 import CreateAdmin from './pages/CreateAdmin';
 import AddBin from './pages/AddBin';
-import ViewAdmin from './pages/ViewManager';
+import ViewAdmin from './pages/ViewAdmin';
 import UpdateManager from './pages/UpdateManager';
 import MViewManager from './pages/mViewManager';
 

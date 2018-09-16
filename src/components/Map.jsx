@@ -18,7 +18,10 @@ export class MapContainer extends Component {
       activeMarker: {},
       selectedPlace: {},
       google : window.google,
-      data:[]
+      data:[],
+      markerlat:'',
+      markerlng:'',
+      markername:''
     });
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
@@ -71,7 +74,14 @@ export class MapContainer extends Component {
     <Link to='/AddBin'> <Button id="button" bsStyle="primary" bsSize="large"  Component={AddBin}>
       Add more Bins
      </Button></Link>
-      </div>      
+      </div> 
+      <ul className=''>
+        {this.state.data.map((data)=>{
+          return(
+            <li><button name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng})}}>{data.name}</button></li>
+          )
+        })}
+      </ul>     
       
        <div id="map-canvas">
       <Map 
@@ -85,6 +95,12 @@ export class MapContainer extends Component {
         lng: 73.1566
       }}
       >
+      {this.state.markername?
+        <Marker 
+        label={this.state.name}
+        position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+      />:''  
+    }
       {this.state.data.map(cord=> {
 return (
         <Marker  

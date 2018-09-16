@@ -18,6 +18,7 @@ class ViewAdmin extends React.Component {
      
       componentWillMount () {
                 this.View();
+                console.log('IM ADMIN AAAAAAAAAA')
         }
     View(){
          var arr=[]
