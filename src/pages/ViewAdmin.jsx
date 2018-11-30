@@ -1,10 +1,12 @@
 import React from 'react';
-//import './ViewManager.css';
+// import './table.css';
 import fire from '../config/Fire';
 import NextNavbar from '../components/NextNavbar.jsx';
 import {Table} from 'react-bootstrap';
 // import { forEach } from 'gl-matrix/src/gl-matrix/vec3';
 // import firebase from 'firebase';
+import Footer from '../components/Footer.jsx';
+
 
 class ViewAdmin extends React.Component {
     constructor(props) {
@@ -18,7 +20,6 @@ class ViewAdmin extends React.Component {
      
       componentWillMount () {
                 this.View();
-                console.log('IM ADMIN AAAAAAAAAA')
         }
     View(){
          var arr=[]
@@ -42,11 +43,17 @@ class ViewAdmin extends React.Component {
       {
         return(
                 <div >
+                  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
                 <NextNavbar/>
-                  
-                      <Table striped bordered  hover>
-                      <thead>
-                        <tr>
+                <div className="container">
+                  <div className="row">
+                  <div className="col-md-2"></div>
+                  <div className="col-md-8">
+                <Table responsive style={{color:"black"}}>
+
+                <thead style={{fontSize:"20px", fontWeight:"bold"}}>
+                        <tr className="info">
                           <th>Username</th>
                           <th>Email Address</th>
                           <th>Phone Number</th>
@@ -55,7 +62,7 @@ class ViewAdmin extends React.Component {
                       <tbody>
                       {this.state.data.map((admin) => { 
                        return(
-                        <tr>
+                        <tr style={{padding:"15px"}}>
                         <td>{admin.username}</td>
                         <td>{admin.email}</td>
                         <td>{admin.phone}</td>
@@ -63,10 +70,13 @@ class ViewAdmin extends React.Component {
                        )
                       })}
                       </tbody>
-                    </Table>                       
-                  
+                </Table>                       
+                  </div>
+                  <div className="col-md-2"></div>
+</div>
+                  </div>
                    
-                  
+            <Footer/>      
 </div>
                  
          

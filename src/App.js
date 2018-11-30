@@ -9,6 +9,7 @@ import Feedback from './pages/Feedback';
 import ViewManager from './pages/ViewManager';
 import CreateManager from './pages/CreateManager';
 import MapContainer from './components/Map.jsx';
+import ManMapContainer from './components/ManMAP';
 import CreateAdmin from './pages/CreateAdmin';
 import AddBin from './pages/AddBin';
 import ViewAdmin from './pages/ViewAdmin';
@@ -70,19 +71,15 @@ componentDidMount(){
         <Route  path ="/CreateManager" component={(this.state.user)?CreateManager:Login}/> 
         <Route  path ="/ViewManager" component={(this.state.user)?ViewManager:Login}/> 
         <Route  path ="/Logout"  component={Home}/> 
-        <Route  path ="/Map"  component={MapContainer}/>
+        <Route  path ="/Map"  component={(this.state.user)?MapContainer:Login}/>
+        <Route  path ="/ManMAP"  component={(this.state.user)?{ManMapContainer}:Login}/>
         <Route  path ="/CreateAdmin" component={(this.state.user)?CreateAdmin:Login}/> 
-        <Route  path ="/AddBin"  component={AddBin}/>
+        <Route  path ="/AddBin"  component={(this.state.user)?{AddBin}:Login}/>
         <Route  path ="/ViewAdmin" component={(this.state.user)?ViewAdmin:Login}/> 
         <Route  path ="/ManagerDashboard" component={(this.state.user)?ManagerDashboard:Login}/> 
         <Route  path ="/mViewManager" component={(this.state.user)?MViewManager:Login}/> 
         <Route  path ="/UpdateManager" component={(this.state.user)?UpdateManager:Login}/> 
 
-
-
-        {/* <div> {this.state.role === 'Manager' ? <ManagerDashboard/>: "" } </div> */}
-
-         {/* {this.state.user ? (<Dashboard/>) : (<Login/>)}  */}
         </Switch>
         
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import fire from '../config/Fire';
 import NextNavbar from '../components/NextNavbar.jsx';
-
+// import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Footer from '../components/Footer.jsx';
 
 
 class CreateAdmin extends React.Component {
@@ -56,15 +57,15 @@ render()
 {
     return(
         <div>
-         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 
         <NextNavbar/>
 
+         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 
      <div className="text-center" data-gr-c-s-loaded="true">
         <div className="container">
         <div className="container">      
-        <h2 >  Add a new Admin <span className="glyphicon glyphicon-user" aria-hidden="true" /> </h2>        
+        <h2 >  Add a new Admin <span className="glyphicon glyphicon-user"> </span></h2>        
         </div>
 
 
@@ -88,6 +89,7 @@ render()
        <label htmlFor="exampleInputpassword">Password</label>
        <input value={this.state.password}  onChange = {(value)=> this.setState({password: value.target.value})} type="password" name="password" className="form-control" id="exampleInputass"  placeholder="Enter password" />
       </div>
+      
          <button type="submit" onClick={this.Create}  className="btn btn-success">Create</button>
 
      <small id="emailHelp" className="form-text text-muted">@2017-2018</small>
@@ -96,6 +98,7 @@ render()
       </div>
 
         </div>
+        <Footer/>
 </div>
     )}}
     export default CreateAdmin;

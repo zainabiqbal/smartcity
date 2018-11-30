@@ -2,6 +2,7 @@ import React from 'react';
 import './CreateManager.css';
 import fire from '../config/Fire';
 import NextNavbar from '../components/NextNavbar.jsx';
+import Footer from '../components/Footer.jsx';
 
 
 
@@ -102,6 +103,7 @@ render()
       </div>
 
         </div>
+        <Footer/>
 </div>
     )}}
     export default CreateManager;

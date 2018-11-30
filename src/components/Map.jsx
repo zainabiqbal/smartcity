@@ -1,13 +1,22 @@
 
+import NextNavbar from '../components/NextNavbar.jsx';
+import redbin from '../images/redbin.png';
+import greenbin from '../images/greenbin.png';
+import orangebin from '../images/orangebin.png';
+
+import fire from '../config/Fire';
 import React, {Component} from 'react';
 import {Map,  Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
-import NextNavbar from '../components/NextNavbar.jsx';
-import bin from '../images/bin.png';
-import fire from '../config/Fire';
-import './Map.css';
+// import './Map.css';
 import {Button} from 'react-bootstrap'
 import AddBin from '../pages/AddBin';
 import {Link } from 'react-router-dom';
+import {ListGroup} from 'react-bootstrap';
+import {ListGroupItem} from 'react-bootstrap'
+import SideNotif from '../components/SideNotif';
+import Footer from '../components/Footer.jsx';
+
+
 
 
 export class MapContainer extends Component {
@@ -19,18 +28,30 @@ export class MapContainer extends Component {
       selectedPlace: {},
       google : window.google,
       data:[],
+      dist:[],
       markerlat:'',
       markerlng:'',
-      markername:''
-    });
+      markername:'',
+      distance:[],
+      currentDistance:'',
+      name:'',
+      lat:'',
+      lng:'',
+      binData:''
+        });
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
+    this.DBclicked = this.DBclicked.bind(this);  
+    this.stateOK = this.stateOK.bind(this);
+
+
+
 
   }
 
-  onMarkerClick = (props, marker, e) => {
+  onMarkerClick = (markername, marker, e) => {
     this.setState({
-      selectedPlace: props,
+      selectedPlace: {markername},
       activeMarker: marker,
       showingInfoWindow: true
     });
@@ -46,9 +67,46 @@ export class MapContainer extends Component {
     }
   }
 
+DBclicked(name,lat,lng,Data)
+{
+this.setState({name:name,lat:lat,lng:lng},()=>this.stateOK());
+
+}
+
+stateOK()
+{
+fire.database().ref('Bins/'+this.state.name+'/Data').limitToLast(1).on('child_added',snapshot=>{
+
+this.setState({currentDistance:snapshot.val().Distance});
+console.log('mysistance',this.state.currentDistance);
+});
+}
+
+
+  getChannelData() {
+    setInterval(()=>{
+    fetch('https://api.thingspeak.com/channels/570421/feeds.json?results=1')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        console.log("Temperature: " + responseJson["feeds"][0]["field1"]);
+        console.log("Distance: " + responseJson["feeds"][0]["field3"]);
+
+        fire.database().ref('Bins/Sherryz Dustbin/Data').push({Temperature: responseJson["feeds"][0]["field1"],
+        Distance: responseJson["feeds"][0]["field3"],
+        Humidity: 0
+      });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, 5000);
+  }
+t
   componentWillMount(){
     var arr=[]
-   fire.database().ref('Bins/' ).once('value',snapshot=>{
+   fire.database().ref('Bins/'  ).once('value',snapshot=>{
      snapshot.forEach((data)=>{
        var cord=(data.val());
        arr.push(cord);
@@ -58,121 +116,172 @@ export class MapContainer extends Component {
 
      
      });
+
+fire.database().ref('Bins/Sherryz Dustbin/Data').limitToLast(1).on('child_added',snapshot=>{
+        var arra=[]
+    snapshot.forEach((data)=>{
+        var kk=(data.val());
+        arra.push(kk);
+      })
+       this.setState({dist: arra})
+        console.log("zainab",this.state.dist);
+
+  ///  console.log('zainab',snapshot.val())
+
+}) 
+
+fire.database().ref('Bins/Sherryz Dustbin/Data').limitToLast(1).on('child_added',snapshot=>{
+  var arra=[]
+snapshot.forEach((data)=>{
+  var kk=(data.val());
+  arra.push(kk);
+})
+ this.setState({dist: arra})
+  console.log("zainab",this.state.dist);
+
+///  console.log('zainab',snapshot.val())
+
+})
+
+
+}
+
+
+     
+
+
+     componentDidMount(){
+     // this.getChannelData();
      }
   
 
   render() {
     const style = {
-      width: '100%',
+      width: '97%',
       height: '100%',
+      borderStyle: 'solid grey',
+      position:'absolute',
+      // display:'block',
+      borderRadius: '25px',
+      borderLeft:'6px solid grey',
+      borderRight:'6px solid grey',
+
     }
-    
+ 
+
+
     return (
-      <div >
+
+      <div>
+   
+       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
        <NextNavbar/>
-     <div>
-    <Link to='/AddBin'> <Button id="button" bsStyle="primary" bsSize="large"  Component={AddBin}>
-      Add more Bins
-     </Button></Link>
-      </div> 
-      <ul className=''>
-        {this.state.data.map((data)=>{
-          return(
-            <li><button name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng})}}>{data.name}</button></li>
+      
+
+       <div  id="map-canvas">
+           <div className="row">
+            <div className="col-md-2" >
+            <h3 style={{textAlign:"center"}}>  Bins <Link to='/AddBin'>  <button type="button" class="btn btn-success"> <span className="glyphicon glyphicon-plus"></span> </button></Link>
+</h3>
+
+             {this.state.data.map((data)=>{
+          return(   
+            <ListGroup>       
+            <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng,distance:data.Data},()=>
+            console.log(this.state.distance,'here is distance'))}}>{data.name}
+
+
+            {/* <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.DBclicked(data.name, data.lat, data.lng, data.Data)}}>{data.name} */}
+
+
+            </ListGroupItem>
+            </ListGroup> 
           )
         })}
-      </ul>     
-      
-       <div id="map-canvas">
-      <Map 
-      
-      google={this.state.google} 
-      zoom={16}
-      style={style}
-      onClick = { this.onMapClick }
-      initialCenter={{
-        lat: 33.6518,
-        lng: 73.1566
-      }}
-      >
-      {this.state.markername?
-        <Marker 
-        label={this.state.name}
-        position={{lat:this.state.markerlat,lng:this.state.markerlng}}
-      />:''  
-    }
-      {this.state.data.map(cord=> {
-return (
-        <Marker  
-        label='Student Cafe' 
-          onClick = { this.onMarkerClick}
-             title={'Student Cafe'}
-             name={'Student Cafe'}
-             key={cord.key}
-             position={{lat: parseFloat(cord.lat), lng: parseFloat(cord.lng)}}
-             icon={{
-               url: bin,
-               anchor: new this.state.google.maps.Point(32,32),
-               scaledSize: new this.state.google.maps.Size(50,50)
-     }} 
-  />)
-
-      } ) }   
-      
-      {this.state.data.map(cord=> {
-return (
-  <InfoWindow
-      marker = { this.state.activeMarker }
-      visible = { this.state.showingInfoWindow }
-      // onOpen={this.handleClick}
-     > 
-  <h4> Student cafe  
-      <p > Fill Level {cord.fillLevel}</p>
-  </h4>
-    </InfoWindow>
-      ) } ) } 
 
 
-        <Marker
-        label={"CS Department"}
-            title={' CS department'}
-            name={' CS department'}
-            position={{lat: 33.649941, lng: 73.155520}} 
-            icon={{
-              url: bin,
-              anchor: new this.state.google.maps.Point(32,32),
-              scaledSize: new this.state.google.maps.Size(50,50),
-           
-                  }} 
-/>
-        <Marker
-           label="EE Department"
-            title={'EE department'}
-            name={'EE department'}
-            position={{lat: 33.651278, lng: 73.156117}} 
-            icon={{
-              url: bin,
-              anchor: new this.state.google.maps.Point(32,32),
-              scaledSize: new this.state.google.maps.Size(50,50)
-    }} 
-/>
-        <Marker/>
-      <Marker
-          label='University Parking'
-            title={'University Parking'}
-            name={'University Parking'}
-            position={{lat: 33.648104, lng:73.157249}}
-            icon={{
-              url: bin,
-              anchor: new this.state.google.maps.Point(32,32),
-              scaledSize: new this.state.google.maps.Size(50,50)
-    }}
-     
-    />
-      </Map>
+            </div>
+              <div className="col-md-8">
+                  <Map 
+                  google={this.state.google} 
+                  zoom={16}
+                  style={style}
+                  onClick = { this.onMapClick }
+                  initialCenter={{
+                    lat: 33.6518,
+                    lng: 73.1566
+                  }}
+                  >
+                  
+                  {this.state.markername && parseInt(this.state.distance) < 40 ?
+                    <Marker 
+                    label={this.state.name}
+                    onClick = { this.onMarkerClick}
+                    position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+                   
+                    icon={{
+                      url: redbin,
+                      anchor: new this.state.google.maps.Point(32,32),
+                      scaledSize: new this.state.google.maps.Size(40,40)
+            }}                 />:
+            this.state.markername && parseInt(this.state.distance) >= 40 ?
+                 <Marker 
+                    label={this.state.name}
+                    onClick = { this.onMarkerClick}
+                    position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+                   
+                    icon={{
+                      url: orangebin,
+                      anchor: new this.state.google.maps.Point(32,32),
+                      scaledSize: new this.state.google.maps.Size(40,40)
+            }}                 />: ''
+
+
+          //       :   this.state.name && this.state.currentDistance < 40 ?
+                
+          //       <Marker 
+          //          label={this.state.name}
+          //          onClick = { this.onMarkerClick}
+          //          position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+                  
+          //          icon={{
+          //            url: greenbin,
+          //            anchor: new this.state.google.maps.Point(32,32),
+          //            scaledSize: new this.state.google.maps.Size(40,40)
+          //  }}                 />
+
+          //  : ''   
+           }       
+
+
+                  {this.state.dist.map(cord=> {
+            return (
+              <InfoWindow
+                  marker = { this.state.activeMarker }
+                  visible = { this.state.showingInfoWindow }
+                  // onOpen={this.handleClick}
+                > 
+              <h4>{cord.name} 
+                  <p> Fill Level {cord.Distance} %</p>
+              </h4>
+                </InfoWindow>
+                  ) } ) } 
+                  </Map>
+                  
+              </div>    
+              <div className="col-md-2" >
+            <SideNotif/>
+              </div>
+
+          </div>
+</div>
+
+        
+      <Footer/>
       </div>
-    
-     </div>
+     
+
     );
   }
 }
@@ -192,6 +301,136 @@ export default GoogleApiWrapper({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <Map 
+      google={this.state.google} 
+      zoom={16}
+      style={style}
+      onClick = { this.onMapClick }
+      initialCenter={{
+        lat: 33.6518,
+        lng: 73.1566
+      }}
+      >
+      {this.state.markername?
+        <Marker 
+        label={this.state.name}
+        onClick = { this.onMarkerClick}
+        position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+        icon={{
+          url: bin,
+          anchor: new this.state.google.maps.Point(32,32),
+          scaledSize: new this.state.google.maps.Size(50,50)
+}} 
+
+      />:''  
+    }
+
+      
+      {this.state.data.map(cord=> {
+return (
+  <InfoWindow
+      marker = { this.state.activeMarker }
+      visible = { this.state.showingInfoWindow }
+      // onOpen={this.handleClick}
+     > 
+   <h4>Student cafe  
+      <p> Fill Level {cord.fillLevel}</p>
+  </h4>
+    </InfoWindow>
+      ) } ) } 
+
+
+      </Map>
+
+      </div>
+          
+        {this.state.data.map((data)=>{
+          return(           
+            <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng})}}>{data.name}
+            </ListGroupItem>
+          )
+        })}
+      
+    
+
+     </div>
+    );
+  }
+}
+ 
+export default GoogleApiWrapper({
+  apiKey: ("AIzaSyCdTx0h3SGj4KV0aq1i0NTq2_DVlVeUW1s")
+})(MapContainer)
+
+
+
+
+
+
+
+
+
+
+
+ */}
 
 
 

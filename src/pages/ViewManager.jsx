@@ -5,6 +5,8 @@ import NextNavbar from '../components/NextNavbar.jsx';
 import {Table} from 'react-bootstrap';
 // import { forEach } from 'gl-matrix/src/gl-matrix/vec3';
 // import firebase from 'firebase';
+import Footer from '../components/Footer.jsx';
+
 
 class ViewManager extends React.Component {
     constructor(props) {
@@ -49,11 +51,18 @@ class ViewManager extends React.Component {
       {
         return(
                 <div >
+                  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
                 <NextNavbar/>
                   
-                      <Table striped bordered  hover>
-                      <thead>
-                        <tr>
+                <div className="container">
+                  <div className="row">
+                  <div className="col-md-2"></div>
+                  <div className="col-md-8">
+                <Table responsive style={{color:"black"}}>
+
+                <thead style={{fontSize:"20px", fontWeight:"bold"}}>
+                        <tr className="info">
                           <th>Username</th>
                           <th>Email Address</th>
                           <th>Phone Number</th>
@@ -71,9 +80,12 @@ class ViewManager extends React.Component {
                       })}
                       </tbody>
                     </Table>                       
-                  
+                    </div>
+                  <div className="col-md-2"></div>
+</div>
+</div>
                    
-                  
+                  <Footer/>
 </div>
                  
          

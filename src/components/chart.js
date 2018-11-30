@@ -80,6 +80,6 @@ class Chart extends Component {
 
     render(){
         return(
-            <LineChart  data={chartData} options={chartOptions} width={800} height={350}/>
+            <LineChart  data={chartData} options={chartOptions} width={400} height={350}/>
         )}}
 export default Chart;

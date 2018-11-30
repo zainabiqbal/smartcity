@@ -2,13 +2,14 @@ import React from 'react';
 import './CreateManager.css';
 import fire from '../config/Fire';
 import ManNavbar from '../components/ManNavbar.jsx';
+import Footer from '../components/Footer.jsx';
 
 
 
 class UpdateManager extends React.Component {
     constructor(props) {
         super(props);
-        this.updateProfile = this.updateProfile.bind(this);
+        this.updateinfo = this.updateinfo.bind(this);
         this.state = {
             username:'',
             email: '',
@@ -20,12 +21,11 @@ class UpdateManager extends React.Component {
 
 
 
-    updateProfile(e) {
-        e.preventDefault(); 
         
-        
+    updateinfo()    {
 
         fire.auth().updateProfile(
+            
             this.state.email,
             this.state.password,
             this.state.phone,
@@ -46,8 +46,8 @@ class UpdateManager extends React.Component {
         }).catch((error) => {
             console.log("ERROR", error);
            alert('Error Updating' , error)      });
-      }
-    
+      
+        }
     //   handleChange(e) {
     //     this.setState({ [e.target.name]: e.target.value });
       
@@ -102,6 +102,7 @@ render()
       </div>
 
         </div>
+        <Footer/>
 </div>
     )}}
     export default UpdateManager;

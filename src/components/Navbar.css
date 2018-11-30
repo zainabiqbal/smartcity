@@ -1,11 +1,25 @@
-.navbar-brand
-{
-    color: rgb(211, 15, 15);
-    font-size: 20px;
-    height: 50px;
-}
+
 a{
-    color: black;
-    font-weight: 1000;
-    font-size: 100%
+    color: rgb(240, 231, 231);
 }
+
+.brand {
+    display: flex;
+    align-items: center;
+    padding-right: 15%;
+  }
+
+
+ #mynav{
+    min-height: 70px;
+ }
+
+ .nav >li >a {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+ .navbar-toggle {
+    padding: 10px;
+    margin: 25px 15px 25px 0;
+  }
+  

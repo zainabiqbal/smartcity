@@ -5,6 +5,7 @@
 }
 .text-center {
     text-align: center!important;
+    color: black
 }
 .bg-light {
     background-color: #f8f9fa!important;
@@ -28,5 +29,15 @@ body {
 *, ::after, ::before {
     box-sizing: border-box;
 }
+h2 {
+    color: rgb(32, 31, 31);
+    font-weight: 300;
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
 
+}
 
+p{
+    color: rgb(48, 45, 45);
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    font-size: 17px;
+}

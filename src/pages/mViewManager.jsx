@@ -48,11 +48,18 @@ class MViewManager extends React.Component {
       {
         return(
                 <div >
+               <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
                 <ManNavbar/>
-                  
-                      <Table striped bordered  hover>
-                      <thead>
-                        <tr>
+                <div className="container">
+                  <div className="row">
+                  <div className="col-md-2"></div>
+                  <div className="col-md-8">
+
+                <Table responsive style={{color:"black",border:"rounded black",borderRadius: '25px'}}>
+
+                      <thead style={{color:"black"}}>
+                        <tr style={{color:"black"}}>
                           <th>Username</th>
                           <th>Email Address</th>
                           <th>Phone Number</th>
@@ -69,10 +76,12 @@ class MViewManager extends React.Component {
                        )
                       })}
                       </tbody>
-                    </Table>                       
-                  
-                   
-                  
+                    </Table>                                      
+                   </div>
+                   <div className="col-md-2"></div>
+
+                   </div>
+                  </div>
 </div>
                  
          

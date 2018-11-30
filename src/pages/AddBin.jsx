@@ -4,204 +4,17 @@ import {Map,  Marker,InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import NextNavbar from '../components/NextNavbar';
 import bin from '../images/bin.png';
 import fire from '../config/Fire';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-
-// const google = window.google;
-// import Paper from 'material-ui/Paper';
-// import Typography from 'material-ui/Typography';
-// import { typography } from 'material-ui/styles';
-
-
-/**
-* Reference to Firebase database.
-* @const
-*/
-
-/**
-* Data object to be written to Firebase.
-*/
-var data = {
-  sender: null,
-  timestamp: null,
-  lat: null,
-  lng: null
-};
-
-function makeInfoBox(controlDiv, map) {
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.boxShadow = 'rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px';
-  controlUI.style.backgroundColor = '#fff';
-  controlUI.style.border = '2px solid #fff';
-  controlUI.style.borderRadius = '2px';
-  controlUI.style.marginBottom = '22px';
-  controlUI.style.marginTop = '10px';
-  controlUI.style.textAlign = 'center';
-  controlDiv.appendChild(controlUI);
-
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.color = 'rgb(25,25,25)';
-  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-  controlText.style.fontSize = '100%';
-  controlText.style.padding = '6px';
-  controlText.textContent = 'The map shows all clicks made in the last 10 minutes.';
-  controlUI.appendChild(controlText);
-}
-
-/**
-* Starting point for running the program. Authenticates the user.
-* @param {function()} onAuthSuccess - Called when authentication succeeds.
-*/
-function initAuthentication(onAuthSuccess) {
-  fire.authAnonymously(function(error, authData) {
-    if (error) {
-      console.log('Login Failed!', error);
-    } else {
-      data.sender = authData.uid;
-      onAuthSuccess();
-    }
-  }, {remember: 'sessionOnly'});  // Users will get a new id for every session.
-}
-
-/**
- * Creates a map object with a click listener and a heatmap.
- */
-function initMap() {
-  var map = new this.state.google.maps.Map(document.getElementById('map'), {
-    center: {lat: 33.6518, lng: 73.1566},
-    zoom: 3,
-    styles: [{
-      featureType: 'poi',
-      stylers: [{ visibility: 'off' }]  // Turn off POI.
-    },
-    {
-      featureType: 'transit.station',
-      stylers: [{ visibility: 'off' }]  // Turn off bus, train stations etc.
-    }],
-    disableDoubleClickZoom: true,
-    streetViewControl: false,
-  });
-
-  // Create the DIV to hold the control and call the makeInfoBox() constructor
-  // passing in this DIV.
-  var infoBoxDiv = document.createElement('div');
-  makeInfoBox(infoBoxDiv, map);
-  map.controls[this.state.google.maps.ControlPosition.TOP_CENTER].push(infoBoxDiv);
-
-  // Listen for clicks and add the location of the click to firebase.
-  map.addListener('click', function(e) {
-    data.lat = e.latLng.lat();
-    data.lng = e.latLng.lng();
-    addToFirebase(data);
-  });
-
-  // Create a heatmap.
-  var heatmap = new this.state.google.maps.visualization.HeatmapLayer({
-    data: [],
-    map: map,
-    radius: 16
-  });
-
-  initAuthentication(initFirebase.bind(undefined, heatmap));
-}
-
-/**
- * Set up a Firebase with deletion on clicks older than expirySeconds
- * @param {!google.maps.visualization.HeatmapLayer} heatmap The heatmap to
- * which points are added from Firebase.
- */
-function initFirebase(heatmap) {
-
-  // 10 minutes before current time.
-  var startTime = new Date().getTime() - (60 * 10 * 1000);
-
-  // Reference to the clicks in Firebase.
-  var clicks = fire.child('clicks');
-
-  // Listener for when a click is added.
-  clicks.orderByChild('timestamp').startAt(startTime).on('child_added',
-    function(snapshot) {
-
-      // Get that click from firebase.
-      var newPosition = snapshot.val();
-      var point = new this.state.google.maps.LatLng(newPosition.lat, newPosition.lng);
-      var elapsed = new Date().getTime() - newPosition.timestamp;
-
-      // Add the point to  the heatmap.
-      heatmap.getData().push(point);
-
-      // Requests entries older than expiry time (10 minutes).
-      var expirySeconds = Math.max(60 * 10 * 1000 - elapsed, 0);
-      // Set client timeout to remove the point after a certain time.
-      window.setTimeout(function() {
-        // Delete the old point from the database.
-        snapshot.ref().remove();
-      }, expirySeconds);
-    }
-  );
-
-  // Remove old data from the heatmap when a point is removed from firebase.
-  clicks.on('child_removed', function(snapshot, prevChildKey) {
-    var heatmapData = heatmap.getData();
-    var i = 0;
-    while (snapshot.val().lat != heatmapData.getAt(i).lat()
-      || snapshot.val().lng != heatmapData.getAt(i).lng()) {
-      i++;
-    }
-    heatmapData.removeAt(i);
-  });
-}
-
-/**
- * Updates the last_message/ path with the current timestamp.
- * @param {function(Date)} addClick After the last message timestamp has been updated,
- *     this function is called with the current timestamp to add the
- *     click to the firebase.
- */
-function getTimestamp(addClick) {
-  // Reference to location for saving the last click time.
-  var ref = fire.child('last_message/' + data.sender);
-
-  ref.onDisconnect().remove();  // Delete reference from firebase on disconnect.
-
-  // Set value to timestamp.
-  ref.set(fire.ServerValue.TIMESTAMP, function(err) {
-    if (err) {  // Write to last message was unsuccessful.
-      console.log(err);
-    } else {  // Write to last message was successful.
-      ref.once('value', function(snap) {
-        addClick(snap.val());  // Add click with same timestamp.
-      }, function(err) {
-        console.warn(err);
-      });
-    }
-  });
-}
-
-/**
- * Adds a click to firebase.
- * @param {Object} data The data to be added to firebase.
- *     It contains the lat, lng, sender and timestamp.
- */
-function addToFirebase(data) {
-  getTimestamp(function(timestamp) {
-    // Add the new timestamp to the record data.
-    data.timestamp = timestamp;
-    var ref = fire.child('clicks').push(data, function(err) {
-      if (err) {  // Data was not written to firebase.
-        console.warn(err);
-      }
-    });
-  });
-}
-
+import TextField from '@material-ui/core/TextField'
+// import '../components/Map.css'
+import {Button} from 'react-bootstrap'
+import {Alert} from 'react-bootstrap'
+import Footer from '../components/Footer.jsx';
+import './AddBin.css'
 
 
 export class MapContainer extends Component {
@@ -221,6 +34,7 @@ export class MapContainer extends Component {
     console.log('something somethin')
   }
   handleClick=(event)=>{
+    
     var lat = event.latLng.lat(), lng = event.latLng.lng();
     this.setState({lat:lat,lng:lng});
     console.log('lat',this.state.lat,'lng',this.state.lng)
@@ -238,22 +52,30 @@ export class MapContainer extends Component {
   }
   handleUpload(){
     const{name,lat,lng}=this.state
-    fire.database().ref('Bins/').push({'name':name,'lat':lat,'lng':lng});
+    fire.database().ref('Bins/' + this.state.name).set({'name':name,'lat':lat,'lng':lng});
+    this.handleClose();
   }
   render(){
     const style = {
-      width: '600px',
-      height: '400px',
+      width: '100%',
+      height: '100%',
     }
     return(
-     <div className='container'>
-      <div className='row' style={style}>
+      <div>
+      <NextNavbar/>
+      <div>
+        <h5 id="button" >Click on map, where you want to add Bin, then press Add</h5>
+      </div> 
+      <div id="button">
+        <Button bsStyle="primary" onClick={this.handleClickOpen}>+ADD</Button>
+      </div>
+
+      <div id="map-canvas">
         <Map 
-        
           google={this.state.google} 
           zoom={16}
           style={style}
-          onClick={(t, map,e) => this.handleClick(e)}
+          onClick={(t, map,e) => this.handleClick(e) }
           initialCenter={{
             lat: 33.6518,
             lng: 73.1566
@@ -261,16 +83,13 @@ export class MapContainer extends Component {
           >
         </Map>
       </div>
-      <div className='row'>
-        <Button onClick={this.handleClickOpen}>Open alert dialog</Button>
-      </div>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Bhai form complete kro"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Enter Bin Name"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <TextField
@@ -284,17 +103,20 @@ export class MapContainer extends Component {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Disagree
+            <Button onClick={this.handleClose} color="primary" bsStyle="primary">
+              Cancel
             </Button>
-            <Button onClick={this.handleUpload.bind(this)} color="primary" autoFocus>
-              Agree
+            <Button bsStyle="primary" onClick={this.handleUpload.bind(this)} color="primary" autoFocus>
+              Confirm
             </Button>
           </DialogActions>
         </Dialog>
+        <Alert bsStyle="warning">
+  <strong>Note!</strong> Make sure to click on the exact Location where you want to place the bin.
+</Alert>;
+<Footer/>
      </div>  
-    
-    )
+         )
   }
 }
 

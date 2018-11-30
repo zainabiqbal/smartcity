@@ -25,7 +25,7 @@ body{
 /*Header */
 
 #header{
-	background: #333333;
+	background: rgb(18, 18, 82);
 	color: #ffffff;
 	padding-bottom: 10px;
 	margin-bottom:  15px;
@@ -43,7 +43,7 @@ body{
 	background: #333333;
 	color: #ffffff;
 	text-align: center;
-	padding: 30px;
+	padding: 20px;
 	margin-top: 30px;
 
 }
@@ -88,7 +88,7 @@ body{
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
-  background-color: #689a9b;
+  background-color: black;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #efee24;
@@ -116,16 +116,16 @@ body{
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #010800;
-    background-color: #689a9b;
+    background-color: black;
   }
 }
 
 /*Breadcrumb*/
 
 .breadcrumb{
-	background: #cccccc;
+	background: slategray;
 	color: #333333;
 }
 .breadcrumb a{
-	color: #333333;
+	color:slategray
 }

@@ -1,6 +1,8 @@
 #map-canvas
  { 
        margin-top: 3%;
+       align-content: center;
+       
      /* margin-left:10%;
       
       border: 1px solid black;; */
@@ -10,8 +12,22 @@
     
     }
 #button{
-        display: flex;
+         display:flex;
          justify-content: center;
          margin: 0 auto;
          margin-top: 2%
     }
+#list{
+  display:flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 2%
+
+}
+#addButton{
+  justify-content:center;
+  margin: 0 auto;  
+  margin-top: 2%
+  
+
+}

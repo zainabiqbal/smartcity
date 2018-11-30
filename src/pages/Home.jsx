@@ -57,7 +57,6 @@ render(){
           </div>
         </div>
       </section>
-
             </div>
             <Footer />
         </div>
