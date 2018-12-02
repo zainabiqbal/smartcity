@@ -1,3 +1,24 @@
-.form-group {
-   color:black
+.form-signinn {
+   font-family: 'Ubuntu', 'Lato', sans-serif;
+   font-weight:bold;
+width: 70%;
+height: 100%;
+margin: 60px auto 30px;
+padding: 10px;
+position: relative;
+    background: url('https://cdn-images-1.medium.com/max/1920/1*ee9Ji2ToUxeYfj3YUQ1xsA.jpeg');
+    border-radius: 0.4em;
+  /* border: 1px solid #494646; */
+   box-shadow: 
+       inset 0 0 2px 1px rgba(255,255,255,0.08), 
+       0 16px 10px -8px rgba(22, 20, 20, 0.6);
+}
+
+.text-center {
+   text-align: center!important;
+   display: flex;
+   -ms-flex-align: center;
+   align-items: center;
+   padding-top: 40px;
+   padding-bottom: 40px;
 }

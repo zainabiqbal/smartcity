@@ -10,7 +10,9 @@ class Feedback extends Component {
 
             <div>
                 <Navbar/>
-                <form className="form-create">
+                <div className="text-center" data-gr-c-s-loaded="true">
+
+                <form className="form-signinn">
 
                 <div className="form-group">
                     <label htmlFor="form_name">Firstname *</label>
@@ -38,7 +40,7 @@ class Feedback extends Component {
              <button type="submit" className="btn btn-success btn-send">Send</button>
 
 </form>
-
+</div>
 <Footer />
             </div>
 

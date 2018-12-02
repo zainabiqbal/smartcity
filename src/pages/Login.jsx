@@ -40,17 +40,18 @@ render(){
     return(
           
         <div>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"></link>
         <Navbar/>
 
         <div className="text-center" data-gr-c-s-loaded="true">
         <div className="container">
         <form className="form-signin">
       <div className="form-group">
-       <label htmlFor="exampleInputEmail1">Email address</label>
-       <input value={this.state.email}  onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+       <label htmlFor="exampleInputEmail1">  <i class="fa fa-envelope"></i>      Email address *</label>
+        <input value={this.state.email}  onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
       </div>
        <div className="form-group">
-      <label htmlFor="exampleInputPassword1">Password</label>
+      <label htmlFor="exampleInputPassword1"><i class="fa fa-lock"></i>        Password *</label>
       <input value={this.state.password}  onChange={this.handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" placeholder="Enter Password" />
       </div>
       <button type="submit" onClick={this.login}  className="btn btn-primary">Login</button>

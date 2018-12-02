@@ -72,9 +72,9 @@ componentDidMount(){
         <Route  path ="/ViewManager" component={(this.state.user)?ViewManager:Login}/> 
         <Route  path ="/Logout"  component={Home}/> 
         <Route  path ="/Map"  component={(this.state.user)?MapContainer:Login}/>
-        <Route  path ="/ManMAP"  component={(this.state.user)?{ManMapContainer}:Login}/>
+        <Route  path ="/ManMAP"  component={(this.state.user)?ManMapContainer:Login}/>
         <Route  path ="/CreateAdmin" component={(this.state.user)?CreateAdmin:Login}/> 
-        <Route  path ="/AddBin"  component={(this.state.user)?{AddBin}:Login}/>
+        <Route  path ="/AddBin"  component={(this.state.user)?AddBin:Login}/>
         <Route  path ="/ViewAdmin" component={(this.state.user)?ViewAdmin:Login}/> 
         <Route  path ="/ManagerDashboard" component={(this.state.user)?ManagerDashboard:Login}/> 
         <Route  path ="/mViewManager" component={(this.state.user)?MViewManager:Login}/> 

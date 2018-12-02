@@ -1,10 +1,17 @@
 .form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    height: 100%;
-    margin:0 auto;
-    align-content: center
+    font-family: 'Ubuntu', 'Lato', sans-serif;
+    font-weight:bold;
+ width: 70%;
+ height: 100%;
+ margin: 60px auto 30px;
+ padding: 10px;
+ position: relative;
+     background: url('http://flexzone.info/wp-content/uploads/2018/09/centurylink-office-at-its-most-extreme-a-virtual-office-conducts-all-business-from-remote-connections-the-staff-is-tied-together-by-email-instant-messaging-centurylink-business-office-365.jpg');
+     border-radius: 0.4em;
+   /* border: 1px solid #494646; */
+    box-shadow: 
+        inset 0 0 2px 1px rgba(255,255,255,0.08), 
+        0 16px 10px -8px rgba(22, 20, 20, 0.6);
 }
 
 .text-center {
@@ -15,17 +22,20 @@
     padding-top: 40px;
     padding-bottom: 40px;
 }
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    border: 0;
+
+
+.form-group {
+ margin:40px;
 }
+
 label {
     display: inline-block;
     margin-bottom: .5rem;
+}
+.form-control{
+    width: 40%;
+    -ms-flex-align: center;
+    margin: 0 auto;
+
+    
 }
