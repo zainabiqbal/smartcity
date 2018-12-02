@@ -188,8 +188,8 @@ snapshot.forEach((data)=>{
              {this.state.data.map((data)=>{
           return(   
             <ListGroup>       
-            <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng,distance:data.Data},()=>
-            console.log(this.state.distance,'here is distance'))}}>{data.name}
+            <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng,distance:data.Data[Object.keys(data.Data)[Object.keys(data.Data).length-1]]},()=>
+            console.log(this.state.distance.Distance,'here is distance'))}}>{data.name}
 
 
             {/* <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.DBclicked(data.name, data.lat, data.lng, data.Data)}}>{data.name} */}
@@ -214,27 +214,48 @@ snapshot.forEach((data)=>{
                   }}
                   >
                   
-                  {this.state.markername && parseInt(this.state.distance) < 40 ?
+                  {this.state.markername && parseInt(this.state.distance.Distance) < 40 ?
+
                     <Marker 
+
                     label={this.state.name}
+
                     onClick = { this.onMarkerClick}
+
                     position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+
                    
+
                     icon={{
+
                       url: redbin,
+
                       anchor: new this.state.google.maps.Point(32,32),
+
                       scaledSize: new this.state.google.maps.Size(40,40)
+
             }}                 />:
-            this.state.markername && parseInt(this.state.distance) >= 40 ?
+
+            this.state.markername && parseInt(this.state.distance.Distance) >= 40 ?
+
                  <Marker 
+
                     label={this.state.name}
+
                     onClick = { this.onMarkerClick}
+
                     position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+
                    
+
                     icon={{
+
                       url: orangebin,
+
                       anchor: new this.state.google.maps.Point(32,32),
+
                       scaledSize: new this.state.google.maps.Size(40,40)
+
             }}                 />: ''
 
 

@@ -9,7 +9,7 @@ import logo from '../images/logo.png';
 class NextNavbar extends Component {
     constructor(props) {
         super(props);
-        this.View=this.View.bind(this);
+        //this.View=this.View.bind(this);
         this.logout = this.logout.bind(this);
         this.state = {
           Notif:[],
@@ -21,23 +21,23 @@ class NextNavbar extends Component {
         fire.auth().signOut();
     }
     
-    componentWillMount () {
-      this.View();
-}
+//     componentWillMount () {
+//       this.View();
+// }
     
-View(){
-  var arr=[]
- fire.database().ref('Notifications/' ).on('child_added',snapshot=>{
-     console.log("jjjjjjjjjjjjjjj",snapshot.val());
-     if (snapshot.val().Level >= 75)
-     {
-      this.setState({Notif:this.state.Notif.concat([snapshot.val()]),Counter:this.state.Counter+1});
-      console.log("here notification", this.state.Counter)
-     }
+// View(){
+//   var arr=[]
+//  fire.database().ref('Notifications/' ).on('child_added',snapshot=>{
+//      console.log("jjjjjjjjjjjjjjj",snapshot.val());
+//      if (snapshot.val().Level >= 75)
+//      {
+//       this.setState({Notif:this.state.Notif.concat([snapshot.val()]),Counter:this.state.Counter+1});
+//       console.log("here notification", this.state.Counter)
+//      }
 
    
-   });
-   }
+//    });
+//    }
 
   
 
