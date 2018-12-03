@@ -8,7 +8,9 @@ admin.initializeApp();
 //  response.send("Hello from Firebase!");
 // });
 
-exports.Notification = functions.database.ref('Bins/{pushId}/Data').onCreate((snapshot, context) => {
+exports.Notification = functions.database.ref('Bins/{binName}/Data/{val}').onCreate((snapshot, context) => {
     console.log("Value -->");
-    console.log(snapshot);
+    console.log(snapshot._data);
+
+    admin.database().ref('Notifications').push(snapshot._data);
 });

@@ -94,7 +94,8 @@ console.log('mysistance',this.state.currentDistance);
 
         fire.database().ref('Bins/Sherryz Dustbin/Data').push({Temperature: responseJson["feeds"][0]["field1"],
         Distance: responseJson["feeds"][0]["field3"],
-        Humidity: 0
+        Humidity: 0,
+        Name: 'Sherryz Dustbin'
       });
 
       })
