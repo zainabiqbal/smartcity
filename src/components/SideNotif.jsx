@@ -26,7 +26,7 @@ fire.database().ref('Notifications/' ).on('child_added',snapshot=>{
  if (snapshot.val().Level >= 75)
  {
   this.setState({Notif:this.state.Notif.concat([snapshot.val()]),Counter:this.state.Counter+1});
-  console.log("here notification", this.state.Counter)
+  console.log("here notification", this.state.Notif)
  }
 
 
