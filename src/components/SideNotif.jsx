@@ -11,23 +11,61 @@ class SideNotif extends Component {
     this.View=this.View.bind(this);
     this.state = {
         Notif:[],
-        Counter:0
+        Counter:0,
+        currentDistance:'',
+        name:'',
     }
 
 }
+
 componentWillMount () {
   this.View();
 }
 
 View(){
-fire.database().ref('Notifications/' ).on('child_added',snapshot=>{
- console.log("here notify");
+
+//   fire.database().ref('Bins/'+this.state.name+'/Data').limitToLast(1).on('child_added',snapshot=>{
+   
+//     this.setState({name:snapshot.val().Name});
+//     this.setState({currentDistance:snapshot.val().Distance});
+//     console.log('notif distanc',this.state.currentDistance);
+
+//     if (snapshot.val().Distance >= 75)
+//  {
+//   this.setState({Notif:this.state.Notif.concat([snapshot.val()]),Counter:this.state.Counter+1});
+//   console.log("here notification", this.state.Notif)
+//  }
+
+
+
+
+var notif = []
+
+
+fire.database().ref('Notifications/' ).on('child_added',(snapshot)=>{
+  // this.setState({name:snapshot.val().Name});
+
  console.log("jjjjjjjjjjjjjjj",snapshot.val());
- if (snapshot.val().Level >= 75)
- {
-  this.setState({Notif:this.state.Notif.concat([snapshot.val()]),Counter:this.state.Counter+1});
-  console.log("here notification", this.state.Notif)
+ console.log('notif', notif)
+ var count=0;
+ // this.setState({Notif:this.state.Notif.concat([snapshot.val()]),Counter:this.state.Counter+1});
+notif.forEach(function(hi){
+ if (hi.Name===snapshot.val().Name){
+   notif.splice(count,1)
  }
+ else {
+   count++;
+ }
+
+})
+if (snapshot.val().Distance >= 75)
+{
+ console.log("here notification", this.state.Notif)
+ notif.push({Distance: snapshot.val().Distance, Humidity: snapshot.val().Humidity, Name: snapshot.val().Name, Temperature: snapshot.val().Temperature})
+
+}
+
+this.setState({Notif:notif,Counter:notif.length});
 
 
 });
@@ -41,14 +79,18 @@ fire.database().ref('Notifications/' ).on('child_added',snapshot=>{
 <div >
 
 
-<h3 >Notification alerts    {this.state.Counter} </h3>
+<h3  style={{fontFamily:'verdana',color:'white'}}>Notification alerts    {this.state.Counter} </h3>
+                   
                    
     {this.state.Notif.map((bin) => { 
               return(  
 
 
                 <div className="card-counter danger">
-                <h4><span className="fa fa-warning custom" ></span>  <b>{bin.name}</b> is now {bin.Level}% full.
+                {/* <h4><span className="fa fa-warning custom" ></span>  <b>{bin.Name}</b> is now {bin.Distance}% full. */}
+
+                <h4><span className="fa fa-warning custom" ></span><b>{bin.Name}</b> is now {bin.Distance}% full.
+
 </h4>
 </div>
                 

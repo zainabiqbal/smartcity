@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import './Home.css';
+import './ManagerDashboard.css';
+
 import fire from '../config/Fire';
 // import Header from './pages/Header';
 import SideNotif from '../components/SideNotif';
 import ManNavbar from '../components/ManNavbar.jsx';
 import  {Link} from 'react-router-dom';
+import Footer from '../components/Footer.jsx';
+import {Jumbotron} from 'react-bootstrap';
+
 
 class ManagerDashboard extends Component {
   constructor(props) {
@@ -22,6 +27,7 @@ class ManagerDashboard extends Component {
     componentWillMount () {
       this.View();
       this.user();
+
 }
 
 View(){
@@ -43,9 +49,9 @@ snapshot.forEach((data)=>{
 }
  user()
  {
-   console.log("xsinsb",fire.auth().currentUser)
-   fire.database().ref('Users/'+ fire.auth().currentUser.uid+'/username').once('value',snapshot=>{
+   fire.database().ref('Users/'+ fire.auth().currentUser.uid + '/username').once('value',snapshot=>{
      this.setState({username:snapshot.val()})
+
    })
  }
 
@@ -65,18 +71,11 @@ snapshot.forEach((data)=>{
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         
 
-        <header id="header"> 
         <ManNavbar/>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-3">
-                <h1>Welcome,  {this.state.username} </h1>
-              
-              </div>
+        <Jumbotron className="jumboman" style={{height:'90%',width:'100%', position:'relative'}}>
+                <h1>Welcome, {this.state.username} </h1>
+        </Jumbotron>
          
-            </div>
-          </div>
-        </header>
         <br />
         {/* <section id="breadcrumb">
           <div className="container">
@@ -87,7 +86,7 @@ snapshot.forEach((data)=>{
         </section> */}
         
         <section id="main">
-          <div className="container">
+          {/* <div className="container"> */}
             <div className="row">
               <div className="col-md-2">
                 <div className="list-group">
@@ -116,7 +115,7 @@ snapshot.forEach((data)=>{
                   <div className="panel-heading" style={{backgroundColor: '#095f59'}}>
                     <h3 className="panel-title">Stats Overview</h3>
                   </div>
-                  <div className="panel-body">
+                  {/* <div className="panel-body">
                     <div className="col-md-3">
                       <div className="well dash-box">
                         <h2><span className="glyphicon glyphicon-user" aria-hidden="true" /> {this.state.Counter}</h2>
@@ -141,7 +140,7 @@ snapshot.forEach((data)=>{
                         <h4>Visitores</h4>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 {/*Latest User*/}
                 <div className="panel panel-default">
@@ -173,13 +172,10 @@ snapshot.forEach((data)=>{
               </div>
 
             </div>
-          </div>
+          {/* </div> */}
           
         </section>
-        <footer id="footer">
-          <p>Copyright : Efficient Data Collection in Smart city<br />2018</p>
-        </footer>
-
+       <Footer/>
 
 
 </div>

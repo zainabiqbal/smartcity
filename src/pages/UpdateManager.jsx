@@ -12,7 +12,6 @@ class UpdateManager extends React.Component {
         this.updateinfo = this.updateinfo.bind(this);
         this.state = {
             username:'',
-            email: '',
             phone:'',
             password: '',
 
@@ -23,31 +22,27 @@ class UpdateManager extends React.Component {
 
         
     updateinfo()    {
+        fire.auth().onAuthStateChanged()
+        .then((u)=>{
+            console.log('what the hell :)', u.uid);
 
-        fire.auth().updateProfile(
-            
-            this.state.email,
-            this.state.password,
-            this.state.phone,
-            this.state.username
-        ).then((u)=>{
-            console.log(u.user.uid);
-           var ref = fire.database().ref('Users/' + u.user.uid);
-            ref.set({
+           var ref = fire.database().ref('Users/'+ u.uid );
+            ref.update({
                 username: this.state.username,
-                email: this.state.email,
                 phone: this.state.phone,
                 password: this.state.password,
                 Role: 'Manager' 
           
             });
-            alert('Updated Information successfully!',u.user.uid)
-
-        }).catch((error) => {
-            console.log("ERROR", error);
-           alert('Error Updating' , error)      });
+            alert('Updated Information successfully!')
+        })
+    }
+        // }).catch((error) => {
+        //     console.log("ERROR", error);
+        //    alert('Error Updating' , error) });
       
-        }
+        // }
+
     //   handleChange(e) {
     //     this.setState({ [e.target.name]: e.target.value });
       
@@ -80,10 +75,7 @@ render()
        <input value={this.state.username} onChange = {(value)=> this.setState({username: value.target.value})}  name="username" className="form-control" id="exampleInputname"  placeholder="Enter username" />
       </div>
 
-       <div className="form-group">
-      <label htmlFor="exampleInputemail">Email address</label>
-      <input value={this.state.email}  onChange = {(value)=> this.setState({email: value.target.value})} type="email" name="email" className="form-control" id="exampleInputemail" placeholder="Enter email" />
-      </div>
+ 
 
       <div className="form-group">
        <label htmlFor="exampleInputphone">Phone number</label>
@@ -94,11 +86,12 @@ render()
        <label htmlFor="exampleInputpassword">Password</label>
        <input value={this.state.password}  onChange = {(value)=> this.setState({password: value.target.value})} type="password" name="password" className="form-control" id="exampleInputass"  placeholder="Enter password" />
       </div>
-         <button type="submit" onClick={this.updateProfile}  className="btn btn-success">Update</button>
 
      <small id="emailHelp" className="form-text text-muted">@2017-2018</small>
 
       </form>
+      <button  onClick={this.updateinfo}  className="btn btn-success">Update</button>
+
       </div>
 
         </div>

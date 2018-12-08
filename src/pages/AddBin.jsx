@@ -17,26 +17,28 @@ import Footer from '../components/Footer.jsx';
 import './AddBin.css'
 
 
+
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.handleClick=this.handleClick.bind(this);
+
     this.state = ({
       google : window.google,
       lat:'',
       lng:'',
       open: false,
-      name:''
+      name:'',
 
     });
   }
   onMapClick(){
-    console.log('something somethin')
+    console.log('something somethin');
   }
-  handleClick=(event)=>{
-    
+  handleClick=(event)=>{  
     var lat = event.latLng.lat(), lng = event.latLng.lng();
     this.setState({lat:lat,lng:lng});
+    
     console.log('lat',this.state.lat,'lng',this.state.lng)
   }
   handleClickOpen = () => {
@@ -45,6 +47,7 @@ export class MapContainer extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    
   };
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -55,13 +58,18 @@ export class MapContainer extends Component {
     fire.database().ref('Bins/' + this.state.name).set({'name':name,'lat':lat,'lng':lng});
     this.handleClose();
   }
-  render(){
+
+  render(){    
     const style = {
       width: '100%',
       height: '100%',
     }
+    
     return(
+      
       <div>
+         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
       <NextNavbar/>
       <div>
         <h5 id="button" >Click on map, where you want to add Bin, then press Add</h5>
@@ -76,11 +84,17 @@ export class MapContainer extends Component {
           zoom={16}
           style={style}
           onClick={(t, map,e) => this.handleClick(e) }
+         
           initialCenter={{
             lat: 33.6518,
             lng: 73.1566
           }}
           >
+          <Marker
+
+          position={{lat:this.state.lat,lng:this.state.lng}}
+          />
+
         </Map>
       </div>
         <Dialog
@@ -99,6 +113,7 @@ export class MapContainer extends Component {
                 value={this.state.name}
                 onChange={this.handleChange.bind(this)}
                 margin="normal"
+              
               />
             </DialogContentText>
           </DialogContent>
@@ -107,14 +122,14 @@ export class MapContainer extends Component {
               Cancel
             </Button>
             <Button bsStyle="primary" onClick={this.handleUpload.bind(this)} color="primary" autoFocus>
-              Confirm
+              Confirm              
             </Button>
+            
           </DialogActions>
         </Dialog>
-        <Alert bsStyle="warning">
+        <Alert bsStyle="danger">
   <strong>Note!</strong> Make sure to click on the exact Location where you want to place the bin.
 </Alert>;
-<Footer/>
      </div>  
          )
   }

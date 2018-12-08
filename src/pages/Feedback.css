@@ -1,12 +1,12 @@
 .form-signinn {
    font-family: 'Ubuntu', 'Lato', sans-serif;
    font-weight:bold;
-width: 70%;
+width: 60%;
 height: 100%;
 margin: 60px auto 30px;
 padding: 10px;
 position: relative;
-    background: url('https://cdn-images-1.medium.com/max/1920/1*ee9Ji2ToUxeYfj3YUQ1xsA.jpeg');
+    background: rgba(255, 255, 255, 0.514);
     border-radius: 0.4em;
   /* border: 1px solid #494646; */
    box-shadow: 

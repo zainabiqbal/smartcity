@@ -35,19 +35,18 @@ class Dashboard extends Component {
         <link href="css/style.css" rel="stylesheet" type="text/css" />
  
       <NextNavbar/>
-    <div className="container"><h2 style={{fontFamily:'verdana',textAlign:'left' }}>Welcome, Admin</h2></div>  
-      <br/>
-
-      {/* <Jumbotron   style={{height:'60%',width:'100%'}}>  
-      </Jumbotron> */}
+    {/* <div className="container"><h2 style={{fontFamily:'verdana',textAlign:'left' }}>Welcome, Admin</h2></div>  
+      <br/> */}
 
     <div className='row'>
+    <div className='col-md-12'>
+          <Jumbotron  className="jumbodash" style={{height:'90%',width:'100%', position:'relative'}}>  
           <div className='col-md-9'>
-          <Jumbotron   style={{height:'60%',width:'100%'}}>  
-      </Jumbotron>
           </div>
-          <div className='col-md-3'>
-          <SideNotif/>
+          <div className='col-md-3' >
+               <SideNotif/>
+            </div>
+      </Jumbotron>
 </div>
   </div>   
 
@@ -65,10 +64,10 @@ class Dashboard extends Component {
                   
       <div className="container">
       <div className="row">
-      <div className="col-md-7">
+      <div className="col-md-6">
       <Calender/>
       </div>
-      <div className="col-md-5">
+      <div className="col-md-6">
                     <Chart/>
         </div>
       </div> 

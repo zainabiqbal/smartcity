@@ -15,6 +15,7 @@ import AddBin from './pages/AddBin';
 import ViewAdmin from './pages/ViewAdmin';
 import UpdateManager from './pages/UpdateManager';
 import MViewManager from './pages/mViewManager';
+import ViewFeedback from './pages/ViewFeedback';
 
 class App extends Component {
   constructor(props) {
@@ -79,6 +80,7 @@ componentDidMount(){
         <Route  path ="/ManagerDashboard" component={(this.state.user)?ManagerDashboard:Login}/> 
         <Route  path ="/mViewManager" component={(this.state.user)?MViewManager:Login}/> 
         <Route  path ="/UpdateManager" component={(this.state.user)?UpdateManager:Login}/> 
+        <Route  path ="/ViewFeedback" component={(this.state.user)?ViewFeedback:Login}/> 
 
         </Switch>
         

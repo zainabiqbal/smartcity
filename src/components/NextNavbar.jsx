@@ -3,7 +3,7 @@ import  {Link} from 'react-router-dom';
 // import  'react-bootstrap/lib';
 import './Navbar.css';
 import fire from '../config/Fire';
-import logo from '../images/logo.png';
+import logo from '../images/new.png';
 
 
 class NextNavbar extends Component {
@@ -49,7 +49,9 @@ class NextNavbar extends Component {
 
       
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark navbar-inverse" id="mynav" style={{fontFamily:'verdana'}}>
-        <Link className="navbar-brand"  to="/"  className="brand" ><img src={logo} className="container-fluid" ></img></Link>
+        <Link className="navbar-brand"  to="/"  className="brand" >
+        <img src={logo} className="container-fluid"  alt="null"></img>
+        </Link>
         <button className="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbarCollapse" >
         <span className="icon-bar"></span> 
         <span className="icon-bar"></span> 
@@ -57,15 +59,53 @@ class NextNavbar extends Component {
 
         </button>
 
-        <div className="container">
+       
           <div className="collapse navbar-collapse" id="navbarCollapse">
             <ul className="nav navbar-nav navbar-right">
               <li className="nav-item">
-                 <Link className="nav-link " to="/Dashboard" style={{color:"white"}}><span className="glyphicon glyphicon-home"></span> Home</Link>
-              </li>
+                 <Link className="nav-link " to="/Dashboard" style={{color:"white",fontSize:"12px"}}><span className="glyphicon glyphicon-home"></span> Home</Link>
+              </li>         
+              
+               <li className="nav-item" >
+            <Link className="nav-link" to="/Map" style={{color:"white",fontSize:"12px"}}><span className="glyphicon glyphicon-map-marker"></span>  View Map</Link>
+            </li>
+            <li className="nav-item" >
+            <Link className="nav-link" to="/ViewFeedback" style={{color:"white",fontSize:"12px"}}><span className="glyphicon glyphicon-comment"></span>  Check feedback </Link>
+            </li>
 
-                  <li className="nav-item dropdown" >
-            <a className="nav-link dropdown-toggle" style={{color:"white"}} to='/' id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+<li className="nav-item dropdown" >
+    <a class="nav-link dropdown-toggle" style={{color:"white",fontSize:"12px"}} to='/'  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+    <span className="glyphicon glyphicon-cog"></span> Settings
+    </a>
+    <ul class="dropdown-menu">
+      <li class="dropdown-submenu">
+      <a className="nav-link dropdown-toggle" style={{color:"black",fontSize:"12px", fontWeight:"bold"}} to='/' id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span className="glyphicon glyphicon-cog"></span> Admin Settings
+            </a>
+            <div className="dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
+            <Link className="dropdown-item"  to="/CreateAdmin">Create Admin</Link>
+              <Link className="dropdown-item" to="/ViewAdmin">View Admin</Link>
+              {/* <Link className="dropdown-item" to="/DeleteAdmin">Delete Admin</Link> */}
+            </div>
+             
+          
+          
+          <a className="nav-link dropdown-toggle" style={{color:"black",fontSize:"12px",fontWeight:"bold"}} href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span className="glyphicon glyphicon-cog"></span> Manager Settings
+            </a>
+            <div className="dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
+              <Link className="dropdown-item"  to="/CreateManager">Create Manager</Link>
+              <Link className="dropdown-item" to="/ViewManager">View Managers</Link>
+              {/* <Link className="dropdown-item" to="/DeleteManager">Delete Manager</Link> */}
+            </div>
+        </li> 
+    </ul>
+</li>
+
+
+                  {/* <li className="nav-item dropdown" >
+            <a className="nav-link dropdown-toggle" style={{color:"white",fontSize:"12px"}} to='/' id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span className="glyphicon glyphicon-cog"></span> Admin Settings
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -76,7 +116,7 @@ class NextNavbar extends Component {
           </li>
                 
             <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" style={{color:"white"}} href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a className="nav-link dropdown-toggle" style={{color:"white",fontSize:"12px"}} href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span className="glyphicon glyphicon-cog"></span> Manager Settings
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -84,19 +124,15 @@ class NextNavbar extends Component {
               <Link className="dropdown-item" to="/ViewManager">View Managers</Link>
               <Link className="dropdown-item" to="/DeleteManager">Delete Manager</Link>
             </div>
-          </li>
+          </li> */}
 
-          <li className="nav-item" >
-                        <Link className="nav-link" to="/Map" style={{color:"white"}}><span className="glyphicon glyphicon-map-marker"></span>  View Map</Link>
-                      </li>
               <li className="nav-item" >
-                <Link className="nav-link" to="/Logout" onClick= {this.logout} style={{color:"orange",marginLeft:'15px'}}><span className="glyphicon glyphicon-log-in"></span>  Logout</Link>
+                <Link className="nav-link" className="nav navbar-nav navbar-right"  to="/Logout" onClick= {this.logout} style={{color:"orange"}}><span className="glyphicon glyphicon-log-in"></span>  Signout</Link>
               </li>
-
             </ul>
             
           </div>
-       </div>
+      
       
                     
       </nav>

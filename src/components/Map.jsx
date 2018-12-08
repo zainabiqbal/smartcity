@@ -37,12 +37,14 @@ export class MapContainer extends Component {
       name:'',
       lat:'',
       lng:'',
-      binData:''
+      binData:'',
+      
         });
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
     this.DBclicked = this.DBclicked.bind(this);  
     this.stateOK = this.stateOK.bind(this);
+    this.Remove = this.Remove.bind(this);
 
 
 
@@ -92,10 +94,10 @@ console.log('mysistance',this.state.currentDistance);
         console.log("Temperature: " + responseJson["feeds"][0]["field1"]);
         console.log("Distance: " + responseJson["feeds"][0]["field3"]);
 
-        fire.database().ref('Bins/Sherryz Dustbin/Data').push({Temperature: responseJson["feeds"][0]["field1"],
+        fire.database().ref('Bins/CS Department/Data').push({Temperature: responseJson["feeds"][0]["field1"],
         Distance: responseJson["feeds"][0]["field3"],
         Humidity: 0,
-        Name: 'Sherryz Dustbin'
+        Name: 'CS Department'
       });
 
       })
@@ -104,7 +106,11 @@ console.log('mysistance',this.state.currentDistance);
       });
     }, 5000);
   }
-t
+
+
+
+
+  
   componentWillMount(){
     var arr=[]
    fire.database().ref('Bins/'  ).once('value',snapshot=>{
@@ -118,7 +124,7 @@ t
      
      });
 
-fire.database().ref('Bins/Sherryz Dustbin/Data').limitToLast(1).on('child_added',snapshot=>{
+fire.database().ref('Bins/CS Department/Data').limitToLast(1).on('child_added',snapshot=>{
         var arra=[]
     snapshot.forEach((data)=>{
         var kk=(data.val());
@@ -131,7 +137,7 @@ fire.database().ref('Bins/Sherryz Dustbin/Data').limitToLast(1).on('child_added'
 
 }) 
 
-fire.database().ref('Bins/Sherryz Dustbin/Data').limitToLast(1).on('child_added',snapshot=>{
+fire.database().ref('Bins/CS Department/Data').limitToLast(1).on('child_added',snapshot=>{
   var arra=[]
 snapshot.forEach((data)=>{
   var kk=(data.val());
@@ -140,19 +146,22 @@ snapshot.forEach((data)=>{
  this.setState({dist: arra})
   console.log("zainab",this.state.dist);
 
-///  console.log('zainab',snapshot.val())
-
 })
 
 
 }
 
+Remove()
+{
+  fire.database().ref('Bins/' ).child(this.state.name).remove();
+  window.location.reload();               
 
+}
      
 
 
      componentDidMount(){
-     // this.getChannelData();
+    // this.getChannelData();
      }
   
 
@@ -161,7 +170,7 @@ snapshot.forEach((data)=>{
       width: '97%',
       height: '100%',
       borderStyle: 'solid grey',
-      position:'absolute',
+      position:'relative',
       // display:'block',
       borderRadius: '25px',
       borderLeft:'6px solid grey',
@@ -179,7 +188,6 @@ snapshot.forEach((data)=>{
 
        <NextNavbar/>
       
-
        <div  id="map-canvas">
            <div className="row">
             <div className="col-md-2" >
@@ -188,22 +196,26 @@ snapshot.forEach((data)=>{
 
              {this.state.data.map((data)=>{
           return(   
-            <ListGroup>       
+            <div >
+            <div className="col-md-2">
+            <button type="button" class="btn btn-danger" ><span className="glyphicon glyphicon-remove" onClick={()=>{this.setState({name:data.name},()=>this.Remove())}}></span></button>
+            </div>
+           <div className="col-md-10">
+           <ListGroup>  
             <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.setState({markername:data.name,markerlat:data.lat,markerlng:data.lng,distance:data.Data[Object.keys(data.Data)[Object.keys(data.Data).length-1]]},()=>
-            console.log(this.state.distance.Distance,'here is distance'))}}>{data.name}
-
-
-            {/* <ListGroupItem bsStyle="success" name={data.name} onClick={()=>{this.DBclicked(data.name, data.lat, data.lng, data.Data)}}>{data.name} */}
-
-
+            console.log(this.state.distance.Distance,'here is distance'))}}> {data.name}
             </ListGroupItem>
+           
             </ListGroup> 
+       </div>
+        </div>
           )
         })}
 
 
             </div>
               <div className="col-md-8">
+
                   <Map 
                   google={this.state.google} 
                   zoom={16}
@@ -215,7 +227,7 @@ snapshot.forEach((data)=>{
                   }}
                   >
                   
-                  {this.state.markername && parseInt(this.state.distance.Distance) < 40 ?
+                  {this.state.markername && parseInt(this.state.distance.Distance) > 75 ?
 
                     <Marker 
 
@@ -233,11 +245,11 @@ snapshot.forEach((data)=>{
 
                       anchor: new this.state.google.maps.Point(32,32),
 
-                      scaledSize: new this.state.google.maps.Size(40,40)
+                      scaledSize: new this.state.google.maps.Size(45,45)
 
             }}                 />:
 
-            this.state.markername && parseInt(this.state.distance.Distance) >= 40 ?
+            this.state.markername && parseInt(this.state.distance.Distance) >=40 ?
 
                  <Marker 
 
@@ -255,27 +267,33 @@ snapshot.forEach((data)=>{
 
                       anchor: new this.state.google.maps.Point(32,32),
 
-                      scaledSize: new this.state.google.maps.Size(40,40)
+                      scaledSize: new this.state.google.maps.Size(45,45)
 
-            }}                 />: ''
+            }}                 />: 
+            
+            this.state.markername && parseInt(this.state.distance.Distance) < 40 ?
 
+            <Marker 
 
-          //       :   this.state.name && this.state.currentDistance < 40 ?
-                
-          //       <Marker 
-          //          label={this.state.name}
-          //          onClick = { this.onMarkerClick}
-          //          position={{lat:this.state.markerlat,lng:this.state.markerlng}}
-                  
-          //          icon={{
-          //            url: greenbin,
-          //            anchor: new this.state.google.maps.Point(32,32),
-          //            scaledSize: new this.state.google.maps.Size(40,40)
-          //  }}                 />
+               label={this.state.name}
 
-          //  : ''   
-           }       
+               onClick = { this.onMarkerClick}
 
+               position={{lat:this.state.markerlat,lng:this.state.markerlng}}
+
+              
+
+               icon={{
+
+                 url: greenbin,
+
+                 anchor: new this.state.google.maps.Point(32,32),
+
+                 scaledSize: new this.state.google.maps.Size(45,45)
+
+       }}                 />: ''
+
+  }
 
                   {this.state.dist.map(cord=> {
             return (
@@ -284,24 +302,26 @@ snapshot.forEach((data)=>{
                   visible = { this.state.showingInfoWindow }
                   // onOpen={this.handleClick}
                 > 
-              <h4>{cord.name} 
-                  <p> Fill Level {cord.Distance} %</p>
+              <h4> <span className="glyphicon glyphicon-exclamation-sign"></span> {this.state.markername} 
+              <hr></hr>
+                  <p> Fill Level {this.state.distance.Distance} %</p>
+                  <p> Humidity {this.state.distance.Humidity} </p>
+                  <p> Temperature {this.state.distance.Temperature} </p>
+
               </h4>
                 </InfoWindow>
                   ) } ) } 
                   </Map>
-                  
-              </div>    
+                  </div>
+
               <div className="col-md-2" >
             <SideNotif/>
               </div>
 
-          </div>
-</div>
+           </div>
+           </div>    
 
-        
-      <Footer/>
-      </div>
+     </div>
      
 
     );

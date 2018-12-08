@@ -24,8 +24,6 @@ class CreateManager extends React.Component {
     Create(e) {
         e.preventDefault(); 
         
-        
-
         fire.auth().createUserWithEmailAndPassword(
             this.state.email,
             this.state.password
@@ -93,7 +91,7 @@ render()
 
       <div className="form-group">
        <label htmlFor="exampleInputpassword">Password</label>
-       <input value={this.state.password}  onChange = {(value)=> this.setState({password: value.target.value})} type="password" name="password" className="form-control" id="exampleInputass"  placeholder="Enter password" />
+       <input value={this.state.password}  onChange = {(value)=> this.setState({password: value.target.value})} type="password" name="password" className="form-control" id="exampleInputpass"  placeholder="Enter password" />
       </div>
          <button type="submit" onClick={this.Create}  className="btn btn-success">Create</button>
 

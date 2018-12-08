@@ -6,7 +6,7 @@ import {Table} from 'react-bootstrap';
 // import { forEach } from 'gl-matrix/src/gl-matrix/vec3';
 // import firebase from 'firebase';
 import Footer from '../components/Footer.jsx';
-
+import './table.css'
 
 class ViewManager extends React.Component {
     constructor(props) {
@@ -56,18 +56,21 @@ class ViewManager extends React.Component {
                 <NextNavbar/>
                   
                 <div className="container">
+                <h2 style={{textAlign:'center'}}>  List of Managers <span className="glyphicon glyphicon-user" aria-hidden="true" /> </h2>        
+
                   <div className="row">
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
-                <Table responsive style={{color:"black"}}>
+                <Table className="mytable" responsive style={{color:"black"}}>
 
-                <thead style={{fontSize:"20px", fontWeight:"bold"}}>
-                        <tr className="info">
+                <thead  className="info" style={{fontSize:"15px"}}>
+                        <tr >
                           <th>Username</th>
                           <th>Email Address</th>
                           <th>Phone Number</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                       {this.state.data.map((manager) => { 
                        return(
@@ -85,7 +88,7 @@ class ViewManager extends React.Component {
 </div>
 </div>
                    
-                  <Footer/>
+                  {/* <Footer/> */}
 </div>
                  
          

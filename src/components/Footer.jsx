@@ -22,7 +22,7 @@ render(){
      <div class="container-fluid bg-primary py-3">
     <div class="container">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-9">
             <div class="row py-0">
           
             <div class="col-sm-11 text-white">
@@ -32,7 +32,7 @@ render(){
             </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           <div class="d-inline-block" >
             <div class="bg-circle-outline d-inline-block" style={{backgroundColor:'#3b5998'}}>
               <a href="https://www.facebook.com/"><i class="fa fa-2x fa-fw fa-facebook text-white"></i>

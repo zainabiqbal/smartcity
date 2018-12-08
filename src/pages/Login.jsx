@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 //import admin from '../config/Admin';
 import fire from '../config/Fire';
+import avatar from '../images/avatar.png';
 
 
 
@@ -46,6 +47,7 @@ render(){
         <div className="text-center" data-gr-c-s-loaded="true">
         <div className="container">
         <form className="form-signin">
+        <img className="img-fluid rounded-circle mb-3" src={avatar} height="300" width="200" alt="null"/>                
       <div className="form-group">
        <label htmlFor="exampleInputEmail1">  <i class="fa fa-envelope"></i>      Email address *</label>
         <input value={this.state.email}  onChange={this.handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />

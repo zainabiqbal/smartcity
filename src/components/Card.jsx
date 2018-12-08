@@ -10,6 +10,7 @@ class Card extends Component {
         return(
             <div className="container">
             <div className="row">
+            <div className="col-md-1"></div>
               <div className="col-md-3">
                 <div className="card-counter primary">
                   <i className="fa fa-map-marker custom" />
@@ -29,7 +30,7 @@ class Card extends Component {
               <div className="col-md-3">
                 <div className="card-counter success">
                   <i className="fa fa-database" />
-                  <Link to="https://console.firebase.google.com/project/smartcity-2107c/database/smartcity-2107c/data"  style={{color:'white'}}><span className="count-numbers">Check DB</span></Link>
+                  <a href="https://console.firebase.google.com/project/smartcity-2107c/database/smartcity-2107c/data"  style={{color:'white'}}><span className="count-numbers">Check DB</span></a>
                   <span className="count-name">Data</span>
                 </div>
               </div>

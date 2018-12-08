@@ -1,5 +1,5 @@
 import React from 'react';
-// import './table.css';
+import './table.css';
 import fire from '../config/Fire';
 import NextNavbar from '../components/NextNavbar.jsx';
 import {Table} from 'react-bootstrap';
@@ -47,13 +47,14 @@ class ViewAdmin extends React.Component {
 
                 <NextNavbar/>
                 <div className="container">
+                <h2 style={{textAlign:'center'}}>  List of Admins <span className="glyphicon glyphicon-user" aria-hidden="true" /> </h2>        
                   <div className="row">
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
-                <Table responsive style={{color:"black"}}>
+                <Table className="mytable" responsive style={{color:"black"}}>
 
-                <thead style={{fontSize:"20px", fontWeight:"bold"}}>
-                        <tr className="info">
+                <thead className="info" style={{fontSize:"15px", width:"4px"}}>
+                        <tr >
                           <th>Username</th>
                           <th>Email Address</th>
                           <th>Phone Number</th>
@@ -76,7 +77,7 @@ class ViewAdmin extends React.Component {
 </div>
                   </div>
                    
-            <Footer/>      
+            {/* <Footer/>       */}
 </div>
                  
          

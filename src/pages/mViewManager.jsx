@@ -5,6 +5,7 @@ import ManNavbar from '../components/ManNavbar.jsx';
 import {Table} from 'react-bootstrap';
 // import { forEach } from 'gl-matrix/src/gl-matrix/vec3';
 // import firebase from 'firebase';
+import Footer from '../components/Footer.jsx';
 
 class MViewManager extends React.Component {
     constructor(props) {
@@ -56,7 +57,7 @@ class MViewManager extends React.Component {
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
 
-                <Table responsive style={{color:"black",border:"rounded black",borderRadius: '25px'}}>
+                <Table  responsive style={{color:"black",border:"rounded black",borderRadius: '25px'}}>
 
                       <thead style={{color:"black"}}>
                         <tr style={{color:"black"}}>
@@ -82,6 +83,7 @@ class MViewManager extends React.Component {
 
                    </div>
                   </div>
+                 {/* <Footer/> */}
 </div>
                  
          
