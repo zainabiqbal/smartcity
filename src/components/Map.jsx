@@ -38,6 +38,9 @@ export class MapContainer extends Component {
       lat:'',
       lng:'',
       binData:'',
+      gotChannel0:true,
+      gotChannel1:true
+      
       
         });
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -47,9 +50,8 @@ export class MapContainer extends Component {
     this.Remove = this.Remove.bind(this);
 
 
-
-
   }
+
 
   onMarkerClick = (markername, marker, e) => {
     this.setState({
@@ -85,19 +87,28 @@ console.log('mysistance',this.state.currentDistance);
 }
 
 
-  getChannelData() {
+
+  getChannelData0() {
+
     setInterval(()=>{
     fetch('https://api.thingspeak.com/channels/570421/feeds.json?results=1')
       .then((response) => response.json())
       .then((responseJson) => {
         console.log(responseJson);
-        console.log("Temperature: " + responseJson["feeds"][0]["field1"]);
+        console.log("Weight: " + responseJson["feeds"][0]["field1"]);
         console.log("Distance: " + responseJson["feeds"][0]["field3"]);
 
-        fire.database().ref('Bins/CS Department/Data').push({Temperature: responseJson["feeds"][0]["field1"],
-        Distance: responseJson["feeds"][0]["field3"],
-        Humidity: 0,
-        Name: 'CS Department'
+ var weight=responseJson["feeds"][0]["field1"];
+var distance=responseJson["feeds"][0]["field3"];
+var weightPercent=(weight/5) *100;
+
+        fire.database().ref('Bins/CS Department/Data').push({
+          Name: 'CS Department',
+          Weight: responseJson["feeds"][0]["field1"],
+          Distance: responseJson["feeds"][0]["field3"],
+          EstimatedLevel: (weightPercent+distance)/2,
+
+        
       });
 
       })
@@ -108,9 +119,6 @@ console.log('mysistance',this.state.currentDistance);
   }
 
 
-
-
-  
   componentWillMount(){
     var arr=[]
    fire.database().ref('Bins/'  ).once('value',snapshot=>{
@@ -133,7 +141,6 @@ fire.database().ref('Bins/CS Department/Data').limitToLast(1).on('child_added',s
        this.setState({dist: arra})
         console.log("zainab",this.state.dist);
 
-  ///  console.log('zainab',snapshot.val())
 
 }) 
 
@@ -161,7 +168,21 @@ Remove()
 
 
      componentDidMount(){
-    // this.getChannelData();
+//       if(this.state.gotChannel1=true)
+//       {
+//       //this.getChannelData0();
+      
+//       this.state.gotChannel1=true
+//       }
+// else{
+      // this.getChannelData1();
+//       this.state.gotChannel1=false
+
+// }
+
+  //   this.getChannelData0();
+    // this.getChannelData1();
+
      }
   
 
@@ -227,7 +248,7 @@ Remove()
                   }}
                   >
                   
-                  {this.state.markername && parseInt(this.state.distance.Distance) > 75 ?
+                  {this.state.markername && parseInt(this.state.distance.Distance) > 75  ?
 
                     <Marker 
 
@@ -304,9 +325,11 @@ Remove()
                 > 
               <h4> <span className="glyphicon glyphicon-exclamation-sign"></span> {this.state.markername} 
               <hr></hr>
-                  <p> Fill Level {this.state.distance.Distance} %</p>
-                  <p> Humidity {this.state.distance.Humidity} </p>
-                  <p> Temperature {this.state.distance.Temperature} </p>
+
+                  <p> Estimated Level Filled {this.state.distance.EstimatedLevel } %</p>
+
+                  <p>Level {this.state.distance.Distance} </p>
+                  <p> Weight {this.state.distance.Weight} </p>
 
               </h4>
                 </InfoWindow>

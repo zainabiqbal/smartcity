@@ -42,6 +42,7 @@ class Feedback extends Component {
         }
         else{
             alert('invalid email')
+         
         }
          
 
@@ -97,11 +98,11 @@ class Feedback extends Component {
                     <div className="help-block with-errors"></div>
                     </div>
             
-             
-
+            
 </form>
-<button onClick={this.ValidateData}  className="btn btn-success btn-send">Send</button>
+<button id='send' onClick={this.ValidateData} className="btn btn-success btn-send">Send</button>
 </div>
+
 <Footer />
             </div>
 

@@ -6,8 +6,9 @@ import {Table} from 'react-bootstrap';
 // import { forEach } from 'gl-matrix/src/gl-matrix/vec3';
 // import firebase from 'firebase';
 import Footer from '../components/Footer.jsx';
+import './table.css'
 
-class MViewManager extends React.Component {
+class mViewManager extends React.Component {
     constructor(props) {
         super(props);
         this.View=this.View.bind(this);
@@ -21,6 +22,7 @@ class MViewManager extends React.Component {
       
       componentWillMount () {
                 this.View();
+                console.log('IM MANAGER AAAAAAAAAA')
         }
 
     View(){
@@ -49,23 +51,26 @@ class MViewManager extends React.Component {
       {
         return(
                 <div >
-               <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+                  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 
                 <ManNavbar/>
+                  
                 <div className="container">
+                <h2 style={{textAlign:'center'}}>  List of Managers <span className="glyphicon glyphicon-user" aria-hidden="true" /> </h2>        
+
                   <div className="row">
                   <div className="col-md-2"></div>
                   <div className="col-md-8">
+                <Table className="mytable" responsive style={{color:"black"}}>
 
-                <Table  responsive style={{color:"black",border:"rounded black",borderRadius: '25px'}}>
-
-                      <thead style={{color:"black"}}>
-                        <tr style={{color:"black"}}>
+                <thead  className="info" style={{fontSize:"15px"}}>
+                        <tr >
                           <th>Username</th>
                           <th>Email Address</th>
                           <th>Phone Number</th>
                         </tr>
                       </thead>
+                      
                       <tbody>
                       {this.state.data.map((manager) => { 
                        return(
@@ -77,17 +82,17 @@ class MViewManager extends React.Component {
                        )
                       })}
                       </tbody>
-                    </Table>                                      
-                   </div>
-                   <div className="col-md-2"></div>
-
-                   </div>
-                  </div>
-                 {/* <Footer/> */}
+                    </Table>                       
+                    </div>
+                  <div className="col-md-2"></div>
+</div>
+</div>
+                   
+                  {/* <Footer/> */}
 </div>
                  
          
         )}
       }
 
-export default MViewManager;
+export default mViewManager;

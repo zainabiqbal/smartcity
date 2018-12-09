@@ -1,5 +1,17 @@
+#button{
+  align-content: center;
+margin-left: 50%;
+display: block;
+margin-bottom: 10px;
 
+}
+#button2{
+  align-content: center;
+margin-left: 40%;
+display: block;
+margin-bottom: 10px;
 
+}
 
 #effect{
     position: relative;

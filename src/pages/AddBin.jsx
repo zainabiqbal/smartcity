@@ -72,7 +72,7 @@ export class MapContainer extends Component {
 
       <NextNavbar/>
       <div>
-        <h5 id="button" >Click on map, where you want to add Bin, then press Add</h5>
+        <h5 id="button2" >Click on map, where you want to add Bin, then press Add</h5>
       </div> 
       <div id="button">
         <Button bsStyle="primary" onClick={this.handleClickOpen}>+ADD</Button>

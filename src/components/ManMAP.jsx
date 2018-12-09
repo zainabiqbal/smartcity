@@ -191,7 +191,7 @@ Remove()
        <div  id="map-canvas">
            <div className="row">
             <div className="col-md-2" >
-            <h3 style={{textAlign:"center"}}>  Bins <Link to='/AddBin'>  <button type="button" class="btn btn-success"> <span className="glyphicon glyphicon-plus"></span> </button></Link>
+            <h3 style={{textAlign:"center"}}>  Bins 
 </h3>
 
              {this.state.data.map((data)=>{
