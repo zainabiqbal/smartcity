@@ -21,37 +21,38 @@ class Feedback extends Component {
         }
       }
       ValidateData(){
-          var firstname=this.state.firstname;
-          var lastname=this.state.lastname;
-          var email=this.state.email;
-          var message=this.state.message;
-
-          const regexemail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-         const regexname= /^[A-Za-z]$/;
-        if(regexemail.test(email)===true){
-
-            if(regexname.test(firstname)===true){
-                    if(regexname.test(lastname)===true){
-                            if(message!==''){
-                                    this.CreateFeedback();
-                            }
-                            else{ alert('Empty Message'); }
-
+         
+        if(this.state.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+            if(this.state.firstname.match(/^[a-z A-Z]{2,}$/)){
+                if(this.state.lastname.match(/^[a-z A-Z]{2,}$/)){
+                    if(this.state.message !== ''){
+                        this.CreateFeedback()
                     }
-                    else{alert('last name must contain alphabets only');}          
-                    
+                    else{
+                        alert('invalid message')
+                    }
+                }
+                else{
+                    alert('invalid lastname')
+                }
             }
-            else{alert('first name must contain alphabets only');
-        console.log('kiya masla hey??')}
+            else{
+                alert('invalid firstname')
+            }
         }
-
-        else{alert('invalid or empty!!');}
+        else{
+            alert('invalid email')
+        }
+         
 
       }
 
-      CreateFeedback(e) {
-        e.preventDefault();  
+      CreateFeedback() {
+          console.log('check5')
+          var name = this.state.firstname
+          console.log(name)
            var ref = fire.database().ref('Feedback/' + this.state.firstname)
+           console.log ('ref',ref)
               ref.set({
                 firstname: this.state.firstname,
                 lastname: this.state.lastname,
@@ -96,9 +97,10 @@ class Feedback extends Component {
                     <div className="help-block with-errors"></div>
                     </div>
             
-             <button type="submit" onClick={this.ValidateData}  className="btn btn-success btn-send">Send</button>
+             
 
 </form>
+<button onClick={this.ValidateData}  className="btn btn-success btn-send">Send</button>
 </div>
 <Footer />
             </div>

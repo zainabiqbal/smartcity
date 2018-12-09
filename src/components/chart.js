@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import fire from '../config/Fire';
 
 var LineChart = require("react-chartjs").Line;
 
@@ -77,9 +78,42 @@ var chartOptions={
 
 
 class Chart extends Component {
-
+	constructor(props){
+		super(props);
+		this.state={
+			data:{},
+			bins:[],
+			perticularbin:[10,30,40]
+		}
+	}
+	componentWillMount(){
+		 var bin=[]
+		fire.database().ref('Bins').once('value',(snapshot)=>{
+			this.setState({bins:Object.keys(snapshot.val())},()=>console.log('binss',this.state.bins))
+		
+		})
+	}
+	binClicked=(bin)=>{
+		var bin=[]
+		fire.database().ref('Bins/'+bin+'/Data').once('value',(snapshot)=>{
+			console.log(snapshot.val())
+			//this.setState({perticularbin:snapshot.val()})
+			snapshot.forEach((d)=>{
+				console.log(d.val().Distance)
+			})
+		})
+	}
     render(){
         return(
+			<div>
+			<div>
             <LineChart  data={chartData} options={chartOptions} width={400} height={350}/>
+			</div>
+			<div>
+				{this.state.bins.map((bin)=>{
+					return(<a onClick={()=>this.binClicked(bin)}>{bin}</a>)
+				})}
+			</div>
+			</div>
         )}}
 export default Chart;

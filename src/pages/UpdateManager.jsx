@@ -14,6 +14,7 @@ class UpdateManager extends React.Component {
             username:'',
             phone:'',
             password: '',
+            user:''
 
         }
       }
@@ -21,9 +22,8 @@ class UpdateManager extends React.Component {
 
 
         
-    updateinfo()    {
-        fire.auth().onAuthStateChanged()
-        .then((u)=>{
+    updateinfo(){
+        this.setState({user:fire.auth().currentUser},(u=this.state.user)=>{
             console.log('what the hell :)', u.uid);
 
            var ref = fire.database().ref('Users/'+ u.uid );
@@ -35,7 +35,7 @@ class UpdateManager extends React.Component {
           
             });
             alert('Updated Information successfully!')
-        })
+        });
     }
         // }).catch((error) => {
         //     console.log("ERROR", error);
