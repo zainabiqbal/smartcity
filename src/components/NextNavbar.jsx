@@ -85,8 +85,8 @@ class NextNavbar extends Component {
             </a>
             <div className="dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
             <Link className="dropdown-item"  to="/CreateAdmin">Create Admin</Link>
-              <Link className="dropdown-item" to="/ViewAdmin">View Admin</Link>
-              {/* <Link className="dropdown-item" to="/DeleteAdmin">Delete Admin</Link> */}
+              <Link className="dropdown-item" to="/ViewAdmin">View All Admins</Link>
+              <Link className="dropdown-item" to="/UpdateAdmin">Update my Information</Link>
             </div>
              
           
@@ -96,7 +96,7 @@ class NextNavbar extends Component {
             </a>
             <div className="dropdown-submenu" aria-labelledby="navbarDropdownMenuLink">
               <Link className="dropdown-item"  to="/CreateManager">Create Manager</Link>
-              <Link className="dropdown-item" to="/ViewManager">View Managers</Link>
+              <Link className="dropdown-item" to="/ViewManager">View All Managers</Link>
               {/* <Link className="dropdown-item" to="/DeleteManager">Delete Manager</Link> */}
             </div>
         </li> 

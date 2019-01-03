@@ -38,8 +38,6 @@ export class MapContainer extends Component {
       lat:'',
       lng:'',
       binData:'',
-      gotChannel0:true,
-      gotChannel1:true
       
       
         });
@@ -101,13 +99,41 @@ console.log('mysistance',this.state.currentDistance);
  var weight=responseJson["feeds"][0]["field1"];
 var distance=responseJson["feeds"][0]["field3"];
 var weightPercent=(weight/5) *100;
+// var est=(weightPercent+distance);
+var est=parseInt(weightPercent)+ parseInt(distance)
+var est2=parseInt(est)/2;
+console.log("estt",est2)
+console.log(weightPercent, "weightperccent")
 
         fire.database().ref('Bins/CS Department/Data').push({
           Name: 'CS Department',
           Weight: responseJson["feeds"][0]["field1"],
           Distance: responseJson["feeds"][0]["field3"],
-          EstimatedLevel: (weightPercent+distance)/2,
+          EstimatedLevel: est2
 
+        
+      });
+
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, 5000);
+  }
+
+
+
+  SecondBinData() {
+    setInterval(()=>{
+    fetch('https://api.thingspeak.com/channels/646200/feeds.json?api_key=RZ2OSWBCNE4TJJRZ&results=2&fbclid=IwAR1LanqptCj6E3ZrE-sWfG9OqgGiLfdFIQ07z0xB97L5MeN7BRcbflHVhKg')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        console.log("Distance: " + responseJson["feeds"][0]["field1"]);
+
+        fire.database().ref('Bins/Second Bin/Data').push({
+          Name: 'Second Bin',
+          Distance: responseJson["feeds"][0]["field1"],
         
       });
 
@@ -156,6 +182,30 @@ snapshot.forEach((data)=>{
 })
 
 
+fire.database().ref('Bins/Second Bin/Data').limitToLast(1).on('child_added',snapshot=>{
+  var arra=[]
+snapshot.forEach((data)=>{
+  var kk=(data.val());
+  arra.push(kk);
+})
+ this.setState({dist: arra})
+  console.log("zainab",this.state.dist);
+
+
+}) 
+
+fire.database().ref('Bins/Second Bin/Data').limitToLast(1).on('child_added',snapshot=>{
+var arra=[]
+snapshot.forEach((data)=>{
+var kk=(data.val());
+arra.push(kk);
+})
+this.setState({dist: arra})
+console.log("zainab",this.state.dist);
+
+})
+
+
 }
 
 Remove()
@@ -168,20 +218,13 @@ Remove()
 
 
      componentDidMount(){
-//       if(this.state.gotChannel1=true)
-//       {
-//       //this.getChannelData0();
-      
-//       this.state.gotChannel1=true
-//       }
-// else{
-      // this.getChannelData1();
-//       this.state.gotChannel1=false
 
-// }
+// this.getChannelData0();
 
-  //   this.getChannelData0();
-    // this.getChannelData1();
+
+
+
+// this.SecondBinData();
 
      }
   
@@ -198,7 +241,10 @@ Remove()
       borderRight:'6px solid grey',
 
     }
- 
+ var weightPercent=((this.state.distance.Weight)/5)*100
+    var distance=this.state.distance.Distance
+   var EstimatedLevel=(weightPercent+distance)/2
+
 
 
     return (
@@ -235,6 +281,7 @@ Remove()
 
 
             </div>
+
               <div className="col-md-8">
 
                   <Map 
@@ -316,6 +363,7 @@ Remove()
 
   }
 
+
                   {this.state.dist.map(cord=> {
             return (
               <InfoWindow
@@ -327,8 +375,7 @@ Remove()
               <hr></hr>
 
                   <p> Estimated Level Filled {this.state.distance.EstimatedLevel } %</p>
-
-                  <p>Level {this.state.distance.Distance} </p>
+                  <p>Fill level {this.state.distance.Distance}%</p>
                   <p> Weight {this.state.distance.Weight} </p>
 
               </h4>

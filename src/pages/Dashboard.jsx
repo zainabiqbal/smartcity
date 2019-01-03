@@ -62,18 +62,19 @@ class Dashboard extends Component {
           </div>
         </section>
                   
-      <div className="container">
-      <div className="row">
-      <div className="col-md-6">
+     
+      {/* <div className="col-md-6">
       <Calender/>
-      </div>
-      <div className="col-md-6">
-                    <Chart/>
-        </div>
-      </div> 
-        
-        </div>   
-        <Footer/>   
+      </div> */}
+      <div className="container">
+          <Chart/>
+          </div>
+
+          <div className="row">
+          <div className="col-md-12">
+          </div>
+          </div>
+                <Footer/>   
   
 </div>
         )}} 

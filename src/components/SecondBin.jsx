@@ -1,5 +1,5 @@
 
-import ManNavbar from '../components/ManNavbar.jsx';
+import NextNavbar from '../components/NextNavbar.jsx';
 import redbin from '../images/redbin.png';
 import greenbin from '../images/greenbin.png';
 import orangebin from '../images/orangebin.png';
@@ -39,6 +39,7 @@ export class MapContainer extends Component {
       lng:'',
       binData:'',
       
+      
         });
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.onMapClick = this.onMapClick.bind(this);
@@ -47,9 +48,8 @@ export class MapContainer extends Component {
     this.Remove = this.Remove.bind(this);
 
 
-
-
   }
+
 
   onMarkerClick = (markername, marker, e) => {
     this.setState({
@@ -85,30 +85,34 @@ console.log('mysistance',this.state.currentDistance);
 }
 
 
-  getChannelData() {
+
+  getChannelData0() {
+
     setInterval(()=>{
-      fetch('https://api.thingspeak.com/channels/570421/feeds.json?results=1')
-        .then((response) => response.json())
-        .then((responseJson) => {
-          console.log(responseJson);
-          console.log("Weight: " + responseJson["feeds"][0]["field1"]);
-          console.log("Distance: " + responseJson["feeds"][0]["field3"]);
-  
-   var weight=responseJson["feeds"][0]["field1"];
-  var distance=responseJson["feeds"][0]["field3"];
-  var weightPercent=(weight/5) *100;
-  // var est=(weightPercent+distance);
-  var est=parseInt(weightPercent)+ parseInt(distance)
-  var est2=parseInt(est)/2;
-  console.log("estt",est2)
-  console.log(weightPercent, "weightperccent")
-  
-          fire.database().ref('Bins/CS Department/Data').push({
-            Name: 'CS Department',
-            Weight: responseJson["feeds"][0]["field1"],
-            Distance: responseJson["feeds"][0]["field3"],
-            EstimatedLevel: est2
-        });
+    fetch('https://api.thingspeak.com/channels/570421/feeds.json?results=1')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        console.log("Weight: " + responseJson["feeds"][0]["field1"]);
+        console.log("Distance: " + responseJson["feeds"][0]["field3"]);
+
+ var weight=responseJson["feeds"][0]["field1"];
+var distance=responseJson["feeds"][0]["field3"];
+var weightPercent=(weight/5) *100;
+// var est=(weightPercent+distance);
+var est=parseInt(weightPercent)+ parseInt(distance)
+var est2=parseInt(est)/2;
+console.log("estt",est2)
+console.log(weightPercent, "weightperccent")
+
+        fire.database().ref('Bins/CS Department/Data').push({
+          Name: 'CS Department',
+          Weight: responseJson["feeds"][0]["field1"],
+          Distance: responseJson["feeds"][0]["field3"],
+          EstimatedLevel: est2
+
+        
+      });
 
       })
       .catch((error) => {
@@ -118,9 +122,6 @@ console.log('mysistance',this.state.currentDistance);
   }
 
 
-
-
-  
   componentWillMount(){
     var arr=[]
    fire.database().ref('Bins/'  ).once('value',snapshot=>{
@@ -143,7 +144,6 @@ fire.database().ref('Bins/CS Department/Data').limitToLast(1).on('child_added',s
        this.setState({dist: arra})
         console.log("zainab",this.state.dist);
 
-  ///  console.log('zainab',snapshot.val())
 
 }) 
 
@@ -171,7 +171,10 @@ Remove()
 
 
      componentDidMount(){
-     this.getChannelData();
+
+
+   this.getChannelData0();
+
      }
   
 
@@ -187,7 +190,10 @@ Remove()
       borderRight:'6px solid grey',
 
     }
- 
+ var weightPercent=((this.state.distance.Weight)/5)*100
+    var distance=this.state.distance.Distance
+   var EstimatedLevel=(weightPercent+distance)/2
+
 
 
     return (
@@ -196,12 +202,12 @@ Remove()
    
        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
 
-       <ManNavbar/>
+       <NextNavbar/>
       
        <div  id="map-canvas">
            <div className="row">
             <div className="col-md-2" >
-            <h3 style={{textAlign:"center"}}>  Bins 
+            <h3 style={{textAlign:"center"}}>  Bins <Link to='/AddBin'>  <button type="button" class="btn btn-success"> <span className="glyphicon glyphicon-plus"></span> </button></Link>
 </h3>
 
              {this.state.data.map((data)=>{
@@ -224,6 +230,7 @@ Remove()
 
 
             </div>
+
               <div className="col-md-8">
 
                   <Map 
@@ -237,7 +244,7 @@ Remove()
                   }}
                   >
                   
-                  {this.state.markername && parseInt(this.state.distance.Distance) > 75 ?
+                  {this.state.markername && parseInt(this.state.distance.Distance) > 75  ?
 
                     <Marker 
 
@@ -305,6 +312,7 @@ Remove()
 
   }
 
+
                   {this.state.dist.map(cord=> {
             return (
               <InfoWindow
@@ -314,8 +322,9 @@ Remove()
                 > 
               <h4> <span className="glyphicon glyphicon-exclamation-sign"></span> {this.state.markername} 
               <hr></hr>
-              <p> Estimated Level Filled {this.state.distance.EstimatedLevel } %</p>
-                  <p>Level {this.state.distance.Distance} </p>
+
+                  <p> Estimated Level Filled {this.state.distance.EstimatedLevel } %</p>
+                  <p>Fill level {this.state.distance.Distance}%</p>
                   <p> Weight {this.state.distance.Weight} </p>
 
               </h4>

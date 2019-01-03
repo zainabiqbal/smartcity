@@ -93,8 +93,8 @@ class Feedback extends Component {
                     </div>
 
                 <div className="form-group">
-                    <label htmlFor="form_message">Message * (MAX LENGTH 50)</label>
-                    <textarea id="form_message" value={this.state.message} maxlength="50" onChange = {(value)=> this.setState({message: value.target.value})} name="message" id="exampleInputtext" className="form-control" placeholder="Message for Us " rows="4" required="required" data-error="Please, leave us a message"></textarea>
+                    <label htmlFor="form_message">Message * (MAX LENGTH 250 )</label>
+                    <textarea id="form_message" value={this.state.message} maxlength="250" onChange = {(value)=> this.setState({message: value.target.value})} name="message" id="exampleInputtext" className="form-control" placeholder="Message for Us " rows="4" required="required" data-error="Please, leave us a message"></textarea>
                     <div className="help-block with-errors"></div>
                     </div>
             

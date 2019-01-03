@@ -10,6 +10,8 @@ class CreateManager extends React.Component {
     constructor(props) {
         super(props);
         this.Create = this.Create.bind(this);
+        this.ValidateData = this.ValidateData.bind(this);
+
         this.state = {
             username:'',
             email: '',
@@ -19,10 +21,35 @@ class CreateManager extends React.Component {
         }
       }
 
+      ValidateData(){
+         
+        if(this.state.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+            if(this.state.username.match(/^[a-z A-Z]{2,}$/)){
+                if(this.state.phone.match(/^[0-9]{2,}$/)){
+                    if(this.state.password !== ''){
+                        this.Create()
+                    }
+                    else{
+                        alert('empty password')
+                    }
+                }
+                else{
+                    alert('Badly typed Phone number')
+                }
+            }
+            else{
+                alert('invalid username')
+            }
+        }
+        else{
+            alert('invalid email')
+         
+        }
+         
 
+      }
 
-    Create(e) {
-        e.preventDefault(); 
+    Create() {
         
         fire.auth().createUserWithEmailAndPassword(
             this.state.email,
@@ -93,11 +120,12 @@ render()
        <label htmlFor="exampleInputpassword">Password</label>
        <input value={this.state.password}  onChange = {(value)=> this.setState({password: value.target.value})} type="password" name="password" className="form-control" id="exampleInputpass"  placeholder="Enter password" />
       </div>
-         <button type="submit" onClick={this.Create}  className="btn btn-success">Create</button>
 
      <small id="emailHelp" className="form-text text-muted">@2017-2018</small>
 
       </form>
+      <button type="submit" onClick={this.ValidateData}  className="btn btn-success">Create</button>
+
       </div>
 
         </div>

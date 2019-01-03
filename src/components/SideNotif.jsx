@@ -9,6 +9,7 @@ class SideNotif extends Component {
   constructor(props) {
     super(props);
     this.View=this.View.bind(this);
+
     this.state = {
         Notif:[],
         Counter:0,
@@ -22,7 +23,7 @@ componentWillMount () {
   this.View();
 }
 
-View(){
+
 
 //   fire.database().ref('Bins/'+this.state.name+'/Data').limitToLast(1).on('child_added',snapshot=>{
    
@@ -38,7 +39,7 @@ View(){
 
 
 
-
+View(){
 var notif = []
 
 
@@ -70,6 +71,7 @@ this.setState({Notif:notif,Counter:notif.length});
 
 });
 }
+
 
     render(){
 
